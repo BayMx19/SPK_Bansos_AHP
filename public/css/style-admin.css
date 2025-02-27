@@ -1,0 +1,35 @@
+.button-add {
+    color: white !important;
+    background-color: #113d3c !important;
+    width: 20%;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    font-weight: bold;
+    position: fixed;
+    right: 50px;
+}
+.button-add:hover {
+    color: #113d3c !important;
+    background-color: white !important;
+    border: 2px solid #113d3c;
+}
+
+.button-save {
+    color: white !important;
+    background-color: #113d3c !important;
+    width: 20%;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    font-weight: bold;
+}
+.button-save:hover {
+    color: #113d3c !important;
+    background-color: white !important;
+    border: 2px solid #113d3c;
+}
+
+.text-bold {
+    font-weight: bold !important;
+}

@@ -1,0 +1,40 @@
+.btn-login {
+    width: 100% !important;
+    background-color: #113d3c;
+    color: white;
+    border: 2px solid transparent;
+    font-weight: bold;
+}
+.btn-login:hover {
+    background-color: white;
+    color: #113d3c;
+    border: 2px solid #113d3c;
+}
+
+.form-control-login {
+    width: 80% !important;
+    border: 2px solid #113d3c;
+}
+
+.title-login {
+    font-size: 0.75rem;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.form-login {
+    padding: 20px !important;
+}
+
+.logo-sidebar {
+    margin: 20px !important;
+}
+
+.sidebar {
+    background-color: blue !important;
+}
+
+.navbar-text-right h6 {
+    margin: 0px !important;
+}
