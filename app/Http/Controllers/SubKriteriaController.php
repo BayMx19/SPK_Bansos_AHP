@@ -8,6 +8,6 @@ class SubKriteriaController extends Controller
 {
     public function index()
     {
-        return view('master subkriteria.index');
+        return view('/master-subkriteria.index');
     }
 }

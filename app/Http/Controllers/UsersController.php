@@ -15,11 +15,9 @@ class UsersController extends Controller
     {
         $users = UsersModel::all();
 
-        // Kirim data ke view
         return view('/master-users.index', compact('users'));
     }
 
-    // Menampilkan form create
     public function create(){
         return view('/master-users.create');
     }
@@ -28,8 +26,6 @@ class UsersController extends Controller
 {
 
     try{
-
-        // Simpan data user baru
         DB::table('users')->insert([
             'name' => $request->name,
             'username' => $request->username,
