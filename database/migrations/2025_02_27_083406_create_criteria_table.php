@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('criteria', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_criteria')->unique();
+            $table->string('nama');
+            $table->decimal('nilai_prioritas', 8, 6);
             $table->timestamps();
         });
     }

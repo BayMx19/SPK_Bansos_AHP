@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('subcriteria', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('criteria_id')->constrained('criteria')->onDelete('cascade');
+            $table->string('sub_criteria');
+            $table->string('bobot');
+            $table->decimal('nilai_prioritas', 8, 6);
             $table->timestamps();
         });
     }
