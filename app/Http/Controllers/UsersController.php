@@ -22,26 +22,26 @@ class UsersController extends Controller
         return view('/master-users.create');
     }
 
-    public function store(Request $request)
-{
+        public function store(Request $request)
+    {
 
-    try{
-        DB::table('users')->insert([
-            'name' => $request->name,
-            'username' => $request->username,
-            'role' => $request->role,
-            'alamat' => $request->alamat,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'status' => $request->status,
-        ]);
+        try{
+            DB::table('users')->insert([
+                'name' => $request->name,
+                'username' => $request->username,
+                'role' => $request->role,
+                'alamat' => $request->alamat,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'status' => $request->status,
+            ]);
 
-        // Redirect kembali dengan pesan sukses
-        return redirect('/master-users')->with('success', 'User berhasil ditambahkan.');
-    } catch (QueryException $e) {
-        return redirect('/master-users')->with('error', 'Gagal menambahkan User: Coba Lagi' );
+            // Redirect kembali dengan pesan sukses
+            return redirect('/master-users')->with('success', 'User berhasil ditambahkan.');
+        } catch (QueryException $e) {
+            return redirect('/master-users')->with('error', 'Gagal menambahkan User: Coba Lagi' );
+        }
     }
-}
 
     // Menampilkan form edit
     public function edit($id)

@@ -6,38 +6,39 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
-                    <div class="card-header judul ">
-                        <h4 class="card-title mb-2 text-bold">Master Users</h4>
+                    <div class="card-header judul">
+                        <h4 class="card-title mb-2 text-bold">Master Sub Kriteria</h4>
                         <div class="button-container">
-                            <a href="{{'/master-users/create'}}"><button class="button-add">Tambah Users</button></a>
+                            <a href="{{'/master-subcriteria/create'}}">
+                                <button class="button-add">Tambah Sub Kriteria</button>
+                            </a>
                         </div>
                     </div>
                     <div class="card-body table-full-width table-responsive mt-5">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <th>No.</th>
-                                <th>Nama</th>
-                                <th>Username</th>
-                                <th>Role</th>
-                                <th>Email</th>
-                                <th>Status</th>
+                                <th>Nama Kriteria</th>
+                                <th>Nama Sub Kriteria</th>
+                                <th>Bobot</th>
+                                <th>Nilai Prioritas</th>
                                 <th>Aksi</th>
                             </thead>
                             <tbody>
-                                @foreach($users as $user)
+                                @foreach($subcriteria as $subcriteria)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->username }}</td>
-                                    <td>{{ $user->role }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->status }}</td>
+                                    <td>{{ $subcriteria->criteria->nama }}</td>
+                                    <td>{{ $subcriteria->sub_criteria }}</td>
+                                    <td>{{ $subcriteria->bobot }}</td>
+
+                                    <td>{{ $subcriteria->nilai_prioritas }}</td>
                                     <td>
-                                        <a href="{{ route('users.edit', $user->id) }}"
+                                        <a href="{{ route('subcriteria.edit', $subcriteria->id) }}"
                                             class="btn btn-warning btn-sm me-2">Edit</a>
 
-                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST"
-                                            style="display:inline;">
+                                        <form action="{{ route('subcriteria.destroy', $subcriteria->id) }}"
+                                            method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm"
@@ -54,6 +55,5 @@
 
         </div>
     </div>
-
 </div>
 @endsection

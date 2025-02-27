@@ -6,9 +6,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card strpied-tabled-with-hover">
-                    <div class="card-header ">
+                    <div class="card-header judul">
                         <h4 class="card-title mb-2 text-bold">Master Warga</h4>
-                        <a href="{{'/master-warga/create'}}"><button class="button-add">Tambah Warga</button></a>
+                        <div class="button-container">
+                            <a href="{{'/master-warga/create'}}"><button class="button-add">Tambah Warga</button></a>
+                        </div>
 
                     </div>
                     <div class="card-body table-full-width table-responsive mt-5">

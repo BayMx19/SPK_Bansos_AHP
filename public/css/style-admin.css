@@ -1,13 +1,29 @@
+.card-header.judul {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    float: right;
+    right: 10px;
+}
+
+.button-container {
+    flex-grow: 1;
+}
 .button-add {
     color: white !important;
+    margin-left: auto;
     background-color: #113d3c !important;
     width: 20%;
     height: 40px;
     border-radius: 10px;
     border: 2px solid transparent;
     font-weight: bold;
-    position: fixed;
-    right: 50px;
+    float: right;
+    right: 10px;
 }
 .button-add:hover {
     color: #113d3c !important;

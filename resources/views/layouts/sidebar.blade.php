@@ -25,14 +25,14 @@
                     <p>Master Warga</p>
                 </a>
             </li>
-            <li class="nav-item @if(request()->is('master-kriteria')) active @endif">
-                <a class=" nav-link" href="{{'/master-kriteria'}}">
+            <li class="nav-item @if(request()->is('master-criteria')) active @endif">
+                <a class=" nav-link" href="{{'/master-criteria'}}">
                     <i class="nc-icon nc-paper-2"></i>
                     <p>Master Kriteria</p>
                 </a>
             </li>
-            <li class="nav-item @if(request()->is('master-subkriteria')) active @endif">
-                <a class=" nav-link" href="{{'/master-subkriteria'}}">
+            <li class="nav-item @if(request()->is('master-subcriteria')) active @endif">
+                <a class=" nav-link" href="{{'/master-subcriteria'}}">
                     <i class="nc-icon nc-atom"></i>
                     <p>Master Sub Kriteria</p>
                 </a>

@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\PerhitunganController;
 use App\Http\Controllers\RekomendasiController;
-use App\Http\Controllers\SubKriteriaController;
+use App\Http\Controllers\SubCriteriaController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WargaController;
 use Illuminate\Support\Facades\Auth;
@@ -47,7 +47,23 @@ Route::put('/master-warga/{id}', [WargaController::class, 'update'])->name('warg
 Route::delete('/master-warga/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
 
 
-Route::get('/master-kriteria', [KriteriaController::class, 'index'])->name('master-kriteria');
-Route::get('/master-subkriteria', [SubKriteriaController::class, 'index'])->name('master-subkriteria');
+Route::get('/master-criteria', [CriteriaController::class, 'index'])->name('master-criteria');
+Route::get('/master-criteria/create', [CriteriaController::class, 'create']);
+Route::post('/criteria/store', [CriteriaController::class, 'store'])->name('criteria.store');
+Route::get('/master-criteria/{id}/edit', [CriteriaController::class, 'edit'])->name('criteria.edit');
+Route::put('/master-criteria/{id}', [CriteriaController::class, 'update'])->name('criteria.update');
+Route::delete('/master-criteria/{id}', [CriteriaController::class, 'destroy'])->name('criteria.destroy');
+
+
+
+Route::get('/master-subcriteria', [SubCriteriaController::class, 'index'])->name('master-subcriteria');
+Route::get('/master-subcriteria/create', [SubCriteriaController::class, 'create']);
+Route::post('/subcriteria/store', [SubCriteriaController::class, 'store'])->name('subcriteria.store');
+Route::get('/master-subcriteria/{id}/edit', [SubCriteriaController::class, 'edit'])->name('subcriteria.edit');
+Route::put('/master-subcriteria/{id}', [SubCriteriaController::class, 'update'])->name('subcriteria.update');
+Route::delete('/master-subcriteria/{id}', [SubCriteriaController::class, 'destroy'])->name('subcriteria.destroy');
+
+
+
 Route::get('/perhitungan', [PerhitunganController::class,'index'])->name('perhitungan');
 Route::get('/hasil-rekomendasi', [RekomendasiController::class, 'index'])->name('hasil-rekomendasi');
