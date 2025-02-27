@@ -4,7 +4,7 @@
         <div class="logo logo-sidebar">
             <img src="{{ asset('image\Logo_Kota_Kediri_-_Seal_of_Kediri_City.svg') }}" style="width: 25%; height:25px;"
                 alt="Logo" />
-            SPK Bantuan Sosial AHP
+            <b>Bantuan Sosial</b>
         </div>
         <ul class="nav">
             <li class="nav-item @if(request()->is('home')) active @endif"">
