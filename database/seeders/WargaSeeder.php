@@ -16,6 +16,8 @@ class WargaSeeder extends Seeder
         DB::table('warga')->insert([
             'nama' => "Warga 1",
             'alamat' => "Kediri",
+            'RT' => "002",
+            'RW' => "013",
             'usia' => "51",
             'status_pekerjaan' => "Pekerjaan Tetap",
             'pendapatan' => "3000000",

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('alamat')->nullable();
+            $table->string('RT', 3);
+            $table->string('RW', 3);
             $table->integer('usia');
             $table->string('status_pekerjaan');
             $table->integer('pendapatan');

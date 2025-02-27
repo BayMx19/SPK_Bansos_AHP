@@ -24,6 +24,8 @@ class WargaController extends Controller
             DB::table('warga')->insert([
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
+                'RT' => $request->RT,
+                'RW' => $request->RW,
                 'usia' => $request->usia,
                 'status_pekerjaan' => $request->status_pekerjaan,
                 'pendapatan' => $request->pendapatan,
@@ -53,6 +55,8 @@ class WargaController extends Controller
         DB::table('warga')->where('id', $id)->update([
             'nama' => $request->nama,
             'alamat' => $request->alamat,
+            'RT' => $request->RT,
+            'RW' => $request->RW,
             'usia' => $request->usia,
             'status_pekerjaan' => $request->status_pekerjaan,
             'pendapatan' => $request->pendapatan,

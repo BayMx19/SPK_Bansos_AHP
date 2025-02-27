@@ -14,6 +14,8 @@ class WargaModel extends Model
     protected $fillable = [
         'nama',
         'alamat',
+        'RT',
+        'RW',
         'usia',
         'status_pekerjaan',
         'pendapatan',

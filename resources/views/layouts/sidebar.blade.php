@@ -7,10 +7,10 @@
             <b>Bantuan Sosial</b>
         </div>
         <ul class="nav">
-            <li class="nav-item @if(request()->is('home')) active @endif"">
+            <li class="nav-item @if(request()->is('home')) active @endif">
                 <a class=" nav-link" href="{{'home'}}">
-                <i class="nc-icon nc-chart-pie-35"></i>
-                <p>Dashboard</p>
+                    <i class="nc-icon nc-chart-pie-35"></i>
+                    <p>Dashboard</p>
                 </a>
             </li>
             <li class="nav-item @if(request()->is('master-users')) active @endif">

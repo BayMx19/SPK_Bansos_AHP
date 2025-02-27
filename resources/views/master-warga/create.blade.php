@@ -27,6 +27,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6 pr-1">
+                                    <div class="form-group">
+                                        <label>RT</label>
+                                        <input type="text" class="form-control" name="RT" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pl-1">
+                                    <div class="form-group">
+                                        <label>RW</label>
+                                        <input type="text" class="form-control" name="RW">
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-md-4 pr-1">

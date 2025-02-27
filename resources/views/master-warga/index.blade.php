@@ -19,6 +19,8 @@
                                 <th>No</th>
                                 <th>Nama</th>
                                 <th>Alamat</th>
+                                <th>RT</th>
+                                <th>RW</th>
                                 <th>Usia</th>
                                 <th>Status Pekerjaan</th>
                                 <th>Pendapatan</th>
@@ -32,6 +34,8 @@
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $item->nama }}</td>
                                     <td>{{ $item->alamat ?? '-' }}</td>
+                                    <td>{{ $item->RT }}</td>
+                                    <td>{{ $item->RW }}</td>
                                     <td>{{ $item->usia }}</td>
                                     <td>{{ $item->status_pekerjaan }}</td>
                                     <td>Rp{{ number_format($item->pendapatan, 0, ',', '.') }}</td>
