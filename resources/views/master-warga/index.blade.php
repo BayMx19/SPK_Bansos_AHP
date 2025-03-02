@@ -18,7 +18,10 @@
                             <thead>
                                 <th>No</th>
                                 <th>Nama</th>
+                                <th>NIK</th>
                                 <th>Alamat</th>
+                                <th>Kelurahan</th>
+                                <th>Kecamatan</th>
                                 <th>RT</th>
                                 <th>RW</th>
                                 <th>Usia</th>
@@ -33,7 +36,10 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $item->nama }}</td>
+                                    <td>{{ $item->NIK }}</td>
                                     <td>{{ $item->alamat ?? '-' }}</td>
+                                    <td>{{ $item->kelurahan }}</td>
+                                    <td>{{ $item->kecamatan }}</td>
                                     <td>{{ $item->RT }}</td>
                                     <td>{{ $item->RW }}</td>
                                     <td>{{ $item->usia }}</td>

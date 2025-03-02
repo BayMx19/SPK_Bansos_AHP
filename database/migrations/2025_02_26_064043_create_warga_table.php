@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('warga', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('NIK', 16)->unique();
             $table->string('alamat')->nullable();
+            $table->string('kelurahan')->nullable();
+            $table->string('kecamatan')->nullable();
             $table->string('RT', 3);
             $table->string('RW', 3);
             $table->integer('usia');

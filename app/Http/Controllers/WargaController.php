@@ -23,9 +23,12 @@ class WargaController extends Controller
         try{
             DB::table('warga')->insert([
                 'nama' => $request->nama,
+                'NIK' => $request->NIK,
                 'alamat' => $request->alamat,
                 'RT' => $request->RT,
                 'RW' => $request->RW,
+                'kecamatan' => $request->kecamatan,
+                'kelurahan' => $request->kelurahan,
                 'usia' => $request->usia,
                 'status_pekerjaan' => $request->status_pekerjaan,
                 'pendapatan' => $request->pendapatan,
@@ -54,15 +57,18 @@ class WargaController extends Controller
         $warga = WargaModel::findOrFail($id);
         DB::table('warga')->where('id', $id)->update([
             'nama' => $request->nama,
+            'NIK' => $request->NIK,
             'alamat' => $request->alamat,
             'RT' => $request->RT,
             'RW' => $request->RW,
+            'kecamatan' => $request->kecamatan,
+            'kelurahan' => $request->kelurahan,
             'usia' => $request->usia,
             'status_pekerjaan' => $request->status_pekerjaan,
             'pendapatan' => $request->pendapatan,
             'jumlah_tanggungan_anak' => $request->jumlah_tanggungan_anak,
             'kepemilikan_rumah' => $request->kepemilikan_rumah,
-        ]);
+    ]);
 
         return redirect('master-warga')->with('success', 'Data warga berhasil diperbarui!');
     }
