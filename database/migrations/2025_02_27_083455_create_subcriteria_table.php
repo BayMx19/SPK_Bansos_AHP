@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('criteria_id')->constrained('criteria')->onDelete('cascade');
             $table->string('sub_criteria');
             $table->string('bobot');
-            $table->decimal('nilai_prioritas', 8, 6);
+            $table->decimal('nilai_prioritas', 10, 9);
             $table->timestamps();
         });
     }

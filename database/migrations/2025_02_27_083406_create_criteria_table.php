@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode_criteria')->unique();
             $table->string('nama');
-            $table->decimal('nilai_prioritas', 8, 6);
+            $table->decimal('nilai_prioritas', 10, 9);
             $table->timestamps();
         });
     }
