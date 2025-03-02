@@ -24,11 +24,6 @@
                                 <th>Kecamatan</th>
                                 <th>RT</th>
                                 <th>RW</th>
-                                <th>Usia</th>
-                                <th>Status Pekerjaan</th>
-                                <th>Pendapatan</th>
-                                <th>Jumlah Tanggungan Anak</th>
-                                <th>Kepemilikan Rumah</th>
                                 <th>Aksi</th>
                             </thead>
                             <tbody>
@@ -42,11 +37,6 @@
                                     <td>{{ $item->kecamatan }}</td>
                                     <td>{{ $item->RT }}</td>
                                     <td>{{ $item->RW }}</td>
-                                    <td>{{ $item->usia }}</td>
-                                    <td>{{ $item->status_pekerjaan }}</td>
-                                    <td>Rp{{ number_format($item->pendapatan, 0, ',', '.') }}</td>
-                                    <td>{{ $item->jumlah_tanggungan_anak }}</td>
-                                    <td>{{ $item->kepemilikan_rumah }}</td>
                                     <td>
                                         <a href="{{ route('warga.edit', $item->id) }}"
                                             class="btn btn-warning btn-sm me-2">Edit</a>
