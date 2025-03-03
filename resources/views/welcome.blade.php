@@ -67,7 +67,7 @@
     </nav>
 
     <!-- Home Section -->
-    <section class="home min-h-full  bg-[#113d3c] text-white">
+    <section class="home min-h-full px-60 py-20 bg-[#113d3c] text-white">
         <div class="flex flex-col md:flex-row justify-between items-center gap-10">
             <div>
                 <h1 class="font-bold text-4xl sm:text-5xl md:text-6xl lg:text-5xl leading-tight">
@@ -91,7 +91,7 @@
 
     <!-- Info Section -->
     <section class="about py-10 bg-gray-200">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 px-5">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 px-20">
             <div class="bg-white p-6 rounded-lg shadow-md hover:bg-gray-100" data-aos="fade-up" data-aos-delay="400">
                 <h5 class="mb-2 text-2xl font-bold text-gray-900">Program 1</h5>
                 <p class="text-gray-700">Deskripsi singkat mengenai program bantuan sosial pertama.</p>
