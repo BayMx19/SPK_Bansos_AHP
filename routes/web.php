@@ -23,9 +23,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [RekomendasiController::class, 'landing'])->name('landing');
 
 Auth::routes();
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');

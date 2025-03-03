@@ -130,44 +130,21 @@
                                 <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">No</th>
                                 <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Nama</th>
                                 <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">NIK</th>
-                                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Nilai Akhir</th>
                             </tr>
                         </thead>
                         <tbody class="text-sm">
+                            @foreach ($rekomendasi as $index => $item)
                             <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
-                                <td class="px-6 py-4 text-gray-800">1</td>
-                                <td class="px-6 py-4 text-gray-800">John Doe</td>
-                                <td class="px-6 py-4 text-gray-800">1234567890123456</td>
-                                <td class="px-6 py-4 text-gray-800">85</td>
+                                <td class="px-6 py-4 text-gray-800">{{ $index + 1 }}</td>
+                                <td class="px-6 py-4 text-gray-800">{{ $item->warga->nama }}</td>
+                                <td class="px-6 py-4 text-gray-800">{{ $item->warga->NIK }}</td>
                             </tr>
-                            <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
-                                <td class="px-6 py-4 text-gray-800">2</td>
-                                <td class="px-6 py-4 text-gray-800">Jane Smith</td>
-                                <td class="px-6 py-4 text-gray-800">2345678901234567</td>
-                                <td class="px-6 py-4 text-gray-800">90</td>
-                            </tr>
-                            <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
-                                <td class="px-6 py-4 text-gray-800">3</td>
-                                <td class="px-6 py-4 text-gray-800">Alice Johnson</td>
-                                <td class="px-6 py-4 text-gray-800">3456789012345678</td>
-                                <td class="px-6 py-4 text-gray-800">78</td>
-                            </tr>
-                            <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
-                                <td class="px-6 py-4 text-gray-800">4</td>
-                                <td class="px-6 py-4 text-gray-800">Bob Brown</td>
-                                <td class="px-6 py-4 text-gray-800">4567890123456789</td>
-                                <td class="px-6 py-4 text-gray-800">92</td>
-                            </tr>
-                            <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
-                                <td class="px-6 py-4 text-gray-800">5</td>
-                                <td class="px-6 py-4 text-gray-800">Charlie Davis</td>
-                                <td class="px-6 py-4 text-gray-800">5678901234567890</td>
-                                <td class="px-6 py-4 text-gray-800">88</td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -211,7 +188,6 @@
             behavior: "smooth"
         });
     });
-
     </script>
 </body>
 

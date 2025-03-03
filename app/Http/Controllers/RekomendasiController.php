@@ -12,4 +12,10 @@ class RekomendasiController extends Controller
         $rekomendasi = PerhitunganModel::with('warga')->orderBy('nilai_akhir', 'desc')->get();
         return view('hasil-rekomendasi.index', compact('rekomendasi'));
     }
+    public function landing()
+    {
+        $rekomendasi = PerhitunganModel::with('warga')->orderBy('nilai_akhir', 'desc')->get();
+        return view('welcome', compact('rekomendasi'));
+    }
+
 }
