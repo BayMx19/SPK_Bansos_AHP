@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <title>Bantuan Sosial AHP</title>
 </head>
 
@@ -36,21 +37,20 @@
             <div class="hidden md:block w-full md:w-auto" id="navbar-default">
                 <ul
                     class="flex flex-col md:flex-row md:space-x-8 p-4 md:p-0 mt-4 md:mt-0 bg-gray-50 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900">
-                    <li><a href="#" class="block py-2 px-3 text-blue-700 dark:text-white">Home</a></li>
-                    <li><a href="#" class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">About
-                            Us</a></li>
+                    <li><a href="#" 
+                            class="block py-2 px-3 hover:text-blue-700 dark:text-white">Beranda</a></li>
+                    <li><a href="#" 
+                            class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">Pengumuman</a></li>
                     <li><a href="#"
-                            class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">Services</a></li>
-                    <li><a href="#"
-                            class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">Contact</a></li>
+                            class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">Kontak Kami</a></li>
                     <li>
 
                         <nav class="-mx-3 flex flex-1 justify-end">
 
-                            <a href="{{ url('/dashboard') }}"
+                            <!-- <a href="{{ url('/dashboard') }}"
                                 class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                                 Dashboard
-                            </a>
+                            </a> -->
 
                             <a href="{{ route('login') }}"
                                 class="bg-[#ed722a] rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
@@ -80,7 +80,7 @@
                     pemerintah kepada masyarakat untuk membantu <br> meringankan beban ekonomi, terutama bagi mereka
                     yang kurang mampu <br> atau berada dalam kondisi rentan.
                 </p>
-                <button class="rounded-md bg-[#ed722a] font-bold px-5 py-2">Pengumuman</button>
+                <button id="scrollBtn" class="rounded-md bg-[#ed722a] font-bold px-5 py-2">Pengumuman</button>
             </div>
             <div>
                 <img src="{{ asset('image\help.svg') }}" alt="Help Image"
@@ -89,20 +89,82 @@
         </div>
     </section>
 
-    <!-- About Us Section -->
+    <!-- Info Section -->
     <section class="about py-10 bg-gray-200">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5 px-5">
-            <div class="bg-white p-6 rounded-lg shadow-md hover:bg-gray-100">
+            <div class="bg-white p-6 rounded-lg shadow-md hover:bg-gray-100" data-aos="fade-up" data-aos-delay="400">
                 <h5 class="mb-2 text-2xl font-bold text-gray-900">Program 1</h5>
                 <p class="text-gray-700">Deskripsi singkat mengenai program bantuan sosial pertama.</p>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-md hover:bg-gray-100">
+            <div class="bg-white p-6 rounded-lg shadow-md hover:bg-gray-100" data-aos="fade-up" data-aos-delay="400">
                 <h5 class="mb-2 text-2xl font-bold text-gray-900">Program 2</h5>
                 <p class="text-gray-700">Deskripsi singkat mengenai program bantuan sosial kedua.</p>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-md hover:bg-gray-100">
+            <div class="bg-white p-6 rounded-lg shadow-md hover:bg-gray-100" data-aos="fade-up" data-aos-delay="400">
                 <h5 class="mb-2 text-2xl font-bold text-gray-900">Program 3</h5>
                 <p class="text-gray-700">Deskripsi singkat mengenai program bantuan sosial ketiga.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pengumuman Section -->
+    <section id="pengumuman" class="bansos py-10 bg-gray-200"> 
+        <div class="bg-white p-6 rounded-lg shadow-md hover:bg-gray-100">
+            <p class="text-center font-semibold text-2xl text-[#113D3C]">Cari Informasi Penerima Bantuan !</p></br>
+            <div class="flex justify-center items-center">
+                <div class="flex space-x-4">
+                    <input type="text" placeholder="Cari NIK..." class="px-6 py-3 w-96 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <button class="px-6 py-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                        Cari
+                    </button>
+                </div>
+            </div>
+            
+            <div class="flex justify-center mt-8 px-4">
+                <div class="w-full max-w-4xl bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+                    <table class="min-w-full table-auto border-separate border-spacing-2">
+                    <thead class="bg-gray-50">
+                        <tr>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">No</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Nama</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">NIK</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Nilai Akhir</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
+                        <td class="px-6 py-4 text-gray-800">1</td>
+                        <td class="px-6 py-4 text-gray-800">John Doe</td>
+                        <td class="px-6 py-4 text-gray-800">1234567890123456</td>
+                        <td class="px-6 py-4 text-gray-800">85</td>
+                        </tr>
+                        <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
+                        <td class="px-6 py-4 text-gray-800">2</td>
+                        <td class="px-6 py-4 text-gray-800">Jane Smith</td>
+                        <td class="px-6 py-4 text-gray-800">2345678901234567</td>
+                        <td class="px-6 py-4 text-gray-800">90</td>
+                        </tr>
+                        <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
+                        <td class="px-6 py-4 text-gray-800">3</td>
+                        <td class="px-6 py-4 text-gray-800">Alice Johnson</td>
+                        <td class="px-6 py-4 text-gray-800">3456789012345678</td>
+                        <td class="px-6 py-4 text-gray-800">78</td>
+                        </tr>
+                        <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
+                        <td class="px-6 py-4 text-gray-800">4</td>
+                        <td class="px-6 py-4 text-gray-800">Bob Brown</td>
+                        <td class="px-6 py-4 text-gray-800">4567890123456789</td>
+                        <td class="px-6 py-4 text-gray-800">92</td>
+                        </tr>
+                        <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
+                        <td class="px-6 py-4 text-gray-800">5</td>
+                        <td class="px-6 py-4 text-gray-800">Charlie Davis</td>
+                        <td class="px-6 py-4 text-gray-800">5678901234567890</td>
+                        <td class="px-6 py-4 text-gray-800">88</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </section>
@@ -137,6 +199,15 @@
     </footer>
 
     <script src="https://kit.fontawesome.com/998802c292.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
+
+        document.getElementById("scrollBtn").addEventListener("click", function () {
+            document.getElementById("pengumuman").scrollIntoView({ behavior: "smooth" });
+        });
+    </script>
 </body>
 
 </html>
