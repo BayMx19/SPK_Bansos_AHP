@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PerhitunganModel;
 use App\Models\WargaModel;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Database\QueryException;
@@ -75,11 +76,17 @@ class WargaController extends Controller
 
 
 
-public function destroy($id)
-{
-    $warga = WargaModel::findOrFail($id);
-    $warga->delete();
+    public function destroy($id)
+    {
+        $warga = WargaModel::findOrFail($id);
+        $warga->delete();
 
-    return redirect('master-warga')->with('success', 'Data warga berhasil dihapus');
-}
+        return redirect('master-warga')->with('success', 'Data warga berhasil dihapus');
+    }
+
+    public function perhitungan()
+    {
+        return $this->hasMany(PerhitunganModel::class, 'warga_id');
+    }
+
 }

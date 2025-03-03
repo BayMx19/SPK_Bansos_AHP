@@ -11,7 +11,6 @@ class CriteriaModel extends Model
     protected $table = 'criteria';
     protected $fillable = ['kode_criteria', 'nama', 'nilai_prioritas'];
 
-    // Relasi ke SubCriteria
     public function subCriteria()
     {
         return $this->hasMany(SubCriteriaModel::class, 'criteria_id');

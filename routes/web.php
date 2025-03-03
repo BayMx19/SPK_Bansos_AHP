@@ -66,4 +66,10 @@ Route::delete('/master-subcriteria/{id}', [SubCriteriaController::class, 'destro
 
 
 Route::get('/perhitungan', [PerhitunganController::class,'index'])->name('perhitungan');
+Route::get('/perhitungan/create', [PerhitunganController::class, 'create']);
+Route::post('/subcriteria/store', [PerhitunganController::class, 'store'])->name('perhitungan.store');
+Route::get('/perhitungan/{id}/edit', [PerhitunganController::class, 'edit'])->name('perhitungan.edit');
+Route::put('/perhitungan/{id}', [PerhitunganController::class, 'update'])->name('perhitungan.update');
+Route::delete('/perhitungan/{id}', [PerhitunganController::class, 'destroy'])->name('perhitungan.destroy');
+
 Route::get('/hasil-rekomendasi', [RekomendasiController::class, 'index'])->name('hasil-rekomendasi');
