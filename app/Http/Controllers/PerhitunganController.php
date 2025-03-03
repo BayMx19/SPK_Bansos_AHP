@@ -17,7 +17,7 @@ class PerhitunganController extends Controller
         $warga = WargaModel::all();
         $perhitungan = PerhitunganModel::with('warga')->get();
 
-        dd($warga);
+        // dd($perhitungan);
         return view('/perhitungan.create', compact('warga', 'perhitungan'));
     }
 }

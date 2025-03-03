@@ -37,12 +37,12 @@
             <div class="hidden md:block w-full md:w-auto" id="navbar-default">
                 <ul
                     class="flex flex-col md:flex-row md:space-x-8 p-4 md:p-0 mt-4 md:mt-0 bg-gray-50 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900">
-                    <li><a href="#" 
-                            class="block py-2 px-3 hover:text-blue-700 dark:text-white">Beranda</a></li>
-                    <li><a href="#" 
-                            class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">Pengumuman</a></li>
+                    <li><a href="#" class="block py-2 px-3 hover:text-blue-700 dark:text-white">Beranda</a></li>
                     <li><a href="#"
-                            class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">Kontak Kami</a></li>
+                            class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">Pengumuman</a>
+                    </li>
+                    <li><a href="#" class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">Kontak
+                            Kami</a></li>
                     <li>
 
                         <nav class="-mx-3 flex flex-1 justify-end">
@@ -67,7 +67,7 @@
     </nav>
 
     <!-- Home Section -->
-    <section class="home min-h-full p-5 bg-[#113d3c] text-white">
+    <section class="home min-h-full  bg-[#113d3c] text-white">
         <div class="flex flex-col md:flex-row justify-between items-center gap-10">
             <div>
                 <h1 class="font-bold text-4xl sm:text-5xl md:text-6xl lg:text-5xl leading-tight">
@@ -108,61 +108,63 @@
     </section>
 
     <!-- Pengumuman Section -->
-    <section id="pengumuman" class="bansos py-10 bg-gray-200"> 
+    <section id="pengumuman" class="bansos py-10 bg-gray-200">
         <div class="bg-white p-6 rounded-lg shadow-md hover:bg-gray-100">
             <p class="text-center font-semibold text-2xl text-[#113D3C]">Cari Informasi Penerima Bantuan !</p></br>
             <div class="flex justify-center items-center">
                 <div class="flex space-x-4">
-                    <input type="text" placeholder="Cari NIK..." class="px-6 py-3 w-96 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    <button class="px-6 py-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <input type="text" placeholder="Cari NIK..."
+                        class="px-6 py-3 w-96 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <button
+                        class="px-6 py-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
                         Cari
                     </button>
                 </div>
             </div>
-            
+
             <div class="flex justify-center mt-8 px-4">
                 <div class="w-full max-w-4xl bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
                     <table class="min-w-full table-auto border-separate border-spacing-2">
-                    <thead class="bg-gray-50">
-                        <tr>
-                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">No</th>
-                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Nama</th>
-                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">NIK</th>
-                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Nilai Akhir</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm">
-                        <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
-                        <td class="px-6 py-4 text-gray-800">1</td>
-                        <td class="px-6 py-4 text-gray-800">John Doe</td>
-                        <td class="px-6 py-4 text-gray-800">1234567890123456</td>
-                        <td class="px-6 py-4 text-gray-800">85</td>
-                        </tr>
-                        <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
-                        <td class="px-6 py-4 text-gray-800">2</td>
-                        <td class="px-6 py-4 text-gray-800">Jane Smith</td>
-                        <td class="px-6 py-4 text-gray-800">2345678901234567</td>
-                        <td class="px-6 py-4 text-gray-800">90</td>
-                        </tr>
-                        <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
-                        <td class="px-6 py-4 text-gray-800">3</td>
-                        <td class="px-6 py-4 text-gray-800">Alice Johnson</td>
-                        <td class="px-6 py-4 text-gray-800">3456789012345678</td>
-                        <td class="px-6 py-4 text-gray-800">78</td>
-                        </tr>
-                        <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
-                        <td class="px-6 py-4 text-gray-800">4</td>
-                        <td class="px-6 py-4 text-gray-800">Bob Brown</td>
-                        <td class="px-6 py-4 text-gray-800">4567890123456789</td>
-                        <td class="px-6 py-4 text-gray-800">92</td>
-                        </tr>
-                        <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
-                        <td class="px-6 py-4 text-gray-800">5</td>
-                        <td class="px-6 py-4 text-gray-800">Charlie Davis</td>
-                        <td class="px-6 py-4 text-gray-800">5678901234567890</td>
-                        <td class="px-6 py-4 text-gray-800">88</td>
-                        </tr>
-                    </tbody>
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">No</th>
+                                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Nama</th>
+                                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">NIK</th>
+                                <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Nilai Akhir</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
+                                <td class="px-6 py-4 text-gray-800">1</td>
+                                <td class="px-6 py-4 text-gray-800">John Doe</td>
+                                <td class="px-6 py-4 text-gray-800">1234567890123456</td>
+                                <td class="px-6 py-4 text-gray-800">85</td>
+                            </tr>
+                            <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
+                                <td class="px-6 py-4 text-gray-800">2</td>
+                                <td class="px-6 py-4 text-gray-800">Jane Smith</td>
+                                <td class="px-6 py-4 text-gray-800">2345678901234567</td>
+                                <td class="px-6 py-4 text-gray-800">90</td>
+                            </tr>
+                            <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
+                                <td class="px-6 py-4 text-gray-800">3</td>
+                                <td class="px-6 py-4 text-gray-800">Alice Johnson</td>
+                                <td class="px-6 py-4 text-gray-800">3456789012345678</td>
+                                <td class="px-6 py-4 text-gray-800">78</td>
+                            </tr>
+                            <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
+                                <td class="px-6 py-4 text-gray-800">4</td>
+                                <td class="px-6 py-4 text-gray-800">Bob Brown</td>
+                                <td class="px-6 py-4 text-gray-800">4567890123456789</td>
+                                <td class="px-6 py-4 text-gray-800">92</td>
+                            </tr>
+                            <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
+                                <td class="px-6 py-4 text-gray-800">5</td>
+                                <td class="px-6 py-4 text-gray-800">Charlie Davis</td>
+                                <td class="px-6 py-4 text-gray-800">5678901234567890</td>
+                                <td class="px-6 py-4 text-gray-800">88</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -202,11 +204,14 @@
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
     <script>
-        AOS.init();
+    AOS.init();
 
-        document.getElementById("scrollBtn").addEventListener("click", function () {
-            document.getElementById("pengumuman").scrollIntoView({ behavior: "smooth" });
+    document.getElementById("scrollBtn").addEventListener("click", function() {
+        document.getElementById("pengumuman").scrollIntoView({
+            behavior: "smooth"
         });
+    });
+
     </script>
 </body>
 

@@ -46,6 +46,10 @@
     border: 2px solid #113d3c;
 }
 
+.button-hitung {
+    text-align: center;
+}
+
 .text-bold {
     font-weight: bold !important;
 }

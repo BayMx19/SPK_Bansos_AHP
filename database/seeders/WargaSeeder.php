@@ -25,7 +25,7 @@ class WargaSeeder extends Seeder
             'status_pekerjaan' => "Pekerjaan Tetap",
             'pendapatan' => "3000000",
             'jumlah_tanggungan_anak' => "1",
-            'kepemilikan_rumah' => "sewa",
+            'kepemilikan_rumah' => "Sewa",
 
         ]);
     }
