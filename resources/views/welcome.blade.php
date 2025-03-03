@@ -19,7 +19,7 @@
 <body style="font-family: Poppins">
 
     <!-- Navbar -->
-    <nav class="bg-white sticky top-0 border-gray-200 dark:bg-gray-900">
+    <nav class="bg-white sticky top-0 border-gray-200 dark:bg-gray-900 z-50">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="#" class="flex items-center space-x-3">
                 <img src="{{ asset('image\Logo_Kota_Kediri_-_Seal_of_Kediri_City.svg') }}" class="h-8" alt="Logo" />
@@ -67,7 +67,7 @@
     </nav>
 
     <!-- Home Section -->
-    <section class="home min-h-screen p-5 bg-[#113d3c] text-white">
+    <section class="home min-h-full p-5 bg-[#113d3c] text-white">
         <div class="flex flex-col md:flex-row justify-between items-center gap-10">
             <div>
                 <h1 class="font-bold text-4xl sm:text-5xl md:text-6xl lg:text-5xl leading-tight">
