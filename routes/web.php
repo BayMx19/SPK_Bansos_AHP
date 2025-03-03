@@ -58,7 +58,7 @@ Route::delete('/master-criteria/{id}', [CriteriaController::class, 'destroy'])->
 
 Route::get('/master-subcriteria', [SubCriteriaController::class, 'index'])->name('master-subcriteria');
 Route::get('/master-subcriteria/create', [SubCriteriaController::class, 'create']);
-Route::post('/subcriteria/store', [SubCriteriaController::class, 'store'])->name('subcriteria.store');
+Route::post('/master-subcriteria/store', [SubCriteriaController::class, 'store'])->name('subcriteria.store');
 Route::get('/master-subcriteria/{id}/edit', [SubCriteriaController::class, 'edit'])->name('subcriteria.edit');
 Route::put('/master-subcriteria/{id}', [SubCriteriaController::class, 'update'])->name('subcriteria.update');
 Route::delete('/master-subcriteria/{id}', [SubCriteriaController::class, 'destroy'])->name('subcriteria.destroy');
