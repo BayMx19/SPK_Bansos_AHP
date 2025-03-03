@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PerhitunganModel;
 use Illuminate\Http\Request;
 
 class RekomendasiController extends Controller
 {
     public function index()
     {
-        return view('hasil rekomendasi.index');
+        $rekomendasi = PerhitunganModel::with('warga')->orderBy('nilai_akhir', 'desc')->get();
+        return view('hasil-rekomendasi.index', compact('rekomendasi'));
     }
 }
