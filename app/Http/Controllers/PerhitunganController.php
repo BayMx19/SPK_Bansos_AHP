@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PerhitunganModel;
+use App\Models\WargaModel;
 use Illuminate\Http\Request;
 
 class PerhitunganController extends Controller
@@ -13,6 +14,10 @@ class PerhitunganController extends Controller
         return view('perhitungan.index', compact('perhitungan'));
     }
     public function create(){
-        return view('/perhitungan.create');
+        $warga = WargaModel::all();
+        $perhitungan = PerhitunganModel::with('warga')->get();
+
+        dd($warga);
+        return view('/perhitungan.create', compact('warga', 'perhitungan'));
     }
 }

@@ -17,13 +17,18 @@
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>Nama</label>
-                                        <input type="text" class="form-control" name="nama" required>
+                                        <select class="form-control" id="warga_id" required>
+                                            <option value="">-- Pilih Warga --</option>
+                                            @foreach($warga as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 pl-1">
                                     <div class="form-group">
                                         <label>Alamat</label>
-                                        <input type="text" class="form-control" name="alamat">
+                                        <input type="text" class="form-control" name="alamat" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -32,19 +37,19 @@
                                     <div class="form-group">
                                         <label>NIK</label>
                                         <input type="number" class="form-control" minlength="16" maxlength="16"
-                                            name="NIK" required>
+                                            name="NIK" required readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
                                         <label>Kecamatan</label>
-                                        <input type="text" class="form-control" name="kecamatan" required>
+                                        <input type="text" class="form-control" name="kecamatan" required readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4 pl-1">
                                     <div class="form-group">
                                         <label>Kelurahan</label>
-                                        <input type="text" class="form-control" name="kelurahan" required>
+                                        <input type="text" class="form-control" name="kelurahan" required readonly>
                                     </div>
                                 </div>
                             </div>
@@ -52,13 +57,13 @@
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>RT</label>
-                                        <input type="text" class="form-control" name="RT" required>
+                                        <input type="text" class="form-control" name="RT" required readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-6 pl-1">
                                     <div class="form-group">
                                         <label>RW</label>
-                                        <input type="text" class="form-control" name="RW">
+                                        <input type="text" class="form-control" name="RW" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -67,13 +72,13 @@
                                 <div class="col-md-4 pr-1">
                                     <div class="form-group">
                                         <label>Usia</label>
-                                        <input type="number" class="form-control" name="usia" required>
+                                        <input type="number" class="form-control" name="usia" required readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
                                         <label>Status Pekerjaan</label>
-                                        <select class="form-control" name="status_pekerjaan" required>
+                                        <select class="form-control" name="status_pekerjaan" required readonly>
                                             <option value="">-- Pilih Pekerjaan --</option>
                                             <option value="Tidak Bekerja"> Tidak Bekerja
                                             </option>
@@ -89,7 +94,7 @@
                                 <div class="col-md-4 pl-1">
                                     <div class="form-group">
                                         <label>Pendapatan</label>
-                                        <input type="number" class="form-control" name="pendapatan" required>
+                                        <input type="number" class="form-control" name="pendapatan" required readonly>
                                     </div>
                                 </div>
                             </div>
@@ -98,14 +103,14 @@
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>Jumlah Tanggungan Anak</label>
-                                        <input type="number" class="form-control" name="jumlah_tanggungan_anak"
-                                            required>
+                                        <input type="number" class="form-control" name="jumlah_tanggungan_anak" required
+                                            readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-6 pl-1">
                                     <div class="form-group">
                                         <label>Kepemilikan Rumah</label>
-                                        <select class="form-control" name="kepemilikan_rumah" required>
+                                        <select class="form-control" name="kepemilikan_rumah" required readonly>
                                             <option value="">-- Pilih Kepemilikan Rumah --</option>
                                             <option value="Menumpang">
                                                 Menumpang

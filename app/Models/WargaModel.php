@@ -25,4 +25,9 @@ class WargaModel extends Model
         'jumlah_tanggungan_anak',
         'kepemilikan_rumah',
     ];
+
+    public function warga()
+    {
+        return $this->hasMany(WargaModel::class, 'warga_id', 'id');
+    }
 }

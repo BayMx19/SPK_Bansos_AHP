@@ -8,6 +8,7 @@ use App\Http\Controllers\RekomendasiController;
 use App\Http\Controllers\SubCriteriaController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\WargaController;
+use App\Models\WargaModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -66,6 +67,10 @@ Route::delete('/master-subcriteria/{id}', [SubCriteriaController::class, 'destro
 
 
 Route::get('/perhitungan', [PerhitunganController::class,'index'])->name('perhitungan');
+Route::get('/get-warga/{id}', function ($id) {
+    $warga = WargaModel::find($id);
+    return response()->json($warga);
+});
 Route::get('/perhitungan/create', [PerhitunganController::class, 'create']);
 Route::post('/subcriteria/store', [PerhitunganController::class, 'store'])->name('perhitungan.store');
 Route::get('/perhitungan/{id}/edit', [PerhitunganController::class, 'edit'])->name('perhitungan.edit');

@@ -13,6 +13,6 @@ class PerhitunganModel extends Model
 
     public function warga()
     {
-        return $this->belongsTo(WargaModel::class, 'warga_id');
+        return $this->belongsTo(WargaModel::class, 'warga_id', 'id');
     }
 }
