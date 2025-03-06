@@ -67,7 +67,7 @@
     </nav>
 
     <!-- Home Section -->
-    <section class="home min-h-full px-40 py-20 bg-[#113d3c] text-white">
+    <section class="home min-h-full px-30 py-10 bg-[#113d3c] text-white">
         <div class="flex flex-col md:flex-row justify-between items-center gap-10">
             <div>
                 <h1 class="font-bold text-4xl sm:text-5xl md:text-6xl lg:text-5xl leading-tight">

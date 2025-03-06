@@ -13,18 +13,21 @@
                     <p>Dashboard</p>
                 </a>
             </li>
+            @if(auth()->check() && auth()->user()->role === 'Staff Kelurahan')
             <li class="nav-item @if(request()->is('master-users')) active @endif">
                 <a class=" nav-link" href="{{'master-users'}}">
                     <i class="nc-icon nc-single-02"></i>
                     <p>Master Users</p>
                 </a>
             </li>
+            @endif
             <li class="nav-item @if(request()->is('master-warga')) active @endif">
                 <a class=" nav-link" href="{{'/master-warga'}}">
                     <i class="nc-icon nc-circle-09"></i>
                     <p>Master Warga</p>
                 </a>
             </li>
+            @if(auth()->check() && auth()->user()->role === 'Staff Kelurahan')
             <li class="nav-item @if(request()->is('master-criteria')) active @endif">
                 <a class=" nav-link" href="{{'/master-criteria'}}">
                     <i class="nc-icon nc-paper-2"></i>
@@ -43,6 +46,7 @@
                     <p>Perhitungan AHP</p>
                 </a>
             </li>
+            @endif
             <li class="nav-item @if(request()->is('hasil-rekomendasi')) active @endif">
                 <a class=" nav-link" href="{{'/hasil-rekomendasi'}}">
                     <i class="nc-icon nc-single-copy-04"></i>
