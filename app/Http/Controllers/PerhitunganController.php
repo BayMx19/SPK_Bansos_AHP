@@ -43,7 +43,7 @@ class PerhitunganController extends Controller
                 'k5' => $request->k5,
                 'nilai_akhir' => $request->nilai_akhir,
             ]);
-            
+
             return redirect('perhitungan')->with('success', 'Data Berhasil Ditambahkan.');
         }catch (QueryException $e){
             return redirect('/perhitungan')->with('error', 'Data Gagal Ditambahkan.');
@@ -73,12 +73,12 @@ class PerhitunganController extends Controller
         $rumah = $request->input('kepemilikan_rumah');
         $nilai_rumah_subcriteria = $this->getNilai('rumah', $rumah);
 
-        $k1 = $usia_criteria*$nilai_usia_subcriteria;
-        $k2 = $kerja_criteria*$nilai_kerja_subcriteria;
-        $k3 = $pendapatan_criteria*$nilai_pendapatan_subcriteria;
-        $k4 = $anak_criteria*$nilai_anak_subcriteria;
-        $k5 = $rumah_criteria*$nilai_rumah_subcriteria;
-        $nilai_akhir = $k1+$k2+$k3+$k4+$k5;
+        $k1 = sprintf("%.9f", $usia_criteria*$nilai_usia_subcriteria);
+        $k2 = sprintf("%.9f", $kerja_criteria*$nilai_kerja_subcriteria);
+        $k3 = sprintf("%.9f", $pendapatan_criteria*$nilai_pendapatan_subcriteria);
+        $k4 = sprintf("%.9f", $anak_criteria*$nilai_anak_subcriteria);
+        $k5 = sprintf("%.9f", $rumah_criteria*$nilai_rumah_subcriteria);
+        $nilai_akhir = sprintf("%.9f", $k1+$k2+$k3+$k4+$k5, 9);
         $warga_id = $request->input('warga_id');
 
         return response()->json([
@@ -95,7 +95,7 @@ class PerhitunganController extends Controller
 
     private function getNilai($tipe, $nilai) {
         // Menentukan nilai berdasarkan criteria_id
-        
+
         switch ($tipe) {
             case 'usia':
                 $criteria_id = 1;
@@ -107,7 +107,7 @@ class PerhitunganController extends Controller
                     $id = 1;
                 }
                 break;
-            
+
             case 'kerja':
                 $criteria_id = 2;
                 if ($nilai == 'Tidak Bekerja') {
@@ -118,7 +118,7 @@ class PerhitunganController extends Controller
                     $id = 6;
                 }
                 break;
-            
+
             case 'pendapatan':
                 $criteria_id = 3;
                 if ($nilai == 0) {
@@ -139,8 +139,8 @@ class PerhitunganController extends Controller
                 } else {
                     $id = 10;
                 }
-                break;    
-            
+                break;
+
             case 'rumah':
                 $criteria_id = 5;
                 if($nilai == 'Menumpang') {
@@ -156,14 +156,23 @@ class PerhitunganController extends Controller
                 // Jika jenis tipe tidak sesuai
                 return null;
         }
-    
+
         // Mengambil nilai_prioritas berdasarkan criteria_id dan id yang ditentukan
         $prioritas = SubCriteriaModel::where('criteria_id', $criteria_id)
                                      ->where('id', $id)
                                      ->pluck('nilai_prioritas')
                                      ->first();
-    
+
         return $prioritas;
     }
-    
+    public function destroy($id)
+    {
+        $perhitungan = PerhitunganModel::findOrFail($id);
+        $perhitungan->delete();
+
+        return redirect('perhitungan')->with('success', 'Data perhitungan berhasil dihapus');
+    }
+
+
+
 }

@@ -41,8 +41,6 @@
                                     <td>{{ $item->k5 }}</td>
                                     <td>{{ $item->nilai_akhir}}</td>
                                     <td>
-                                        <a href="{{ route('perhitungan.edit', $item->id) }}"
-                                            class="btn btn-warning btn-sm me-2">Edit</a>
                                         <form action="{{ route('perhitungan.destroy', $item->id) }}" method="POST"
                                             style="display:inline-block;">
                                             @csrf

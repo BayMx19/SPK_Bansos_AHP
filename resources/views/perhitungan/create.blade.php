@@ -29,7 +29,7 @@
                                         <label>Alamat</label>
                                         <input type="text" class="form-control" name="alamat" id="alamat" readonly>
                                     </div>
-                                </div>  
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4 pr-1">
@@ -115,8 +115,9 @@
                                 </div>
                             </div>
                         </form>
-                        
-                        <form action="{{ route('perhitungan.store') }}" method="POST">
+
+                        <form action="{{ route('perhitungan.store') }}" method="POST" id="form-hasil"
+                            style="display: none;">
                             @csrf
                             <input type="hidden" value="" id="wargaId" name="wargaId">
                             <div class="row">
@@ -175,121 +176,123 @@
                             </div>
 
                         </form>
-                    <div class="clearfix"></div>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
             </div>
+
+
         </div>
-
-
     </div>
-</div>
 
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-        $('#warga_id').change(function() {
-            var wargaId = $(this).val();
+$(document).ready(function() {
+    $('#warga_id').change(function() {
+        var wargaId = $(this).val();
 
-            if (wargaId) {
-                $.ajax({
-                    url: '/get-warga/' + wargaId,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $('#alamat').val(data.alamat);
-                        $('#NIK').val(data.NIK);
-                        $('#kelurahan').val(data.kelurahan);
-                        $('#kecamatan').val(data.kecamatan);
-                        $('#RT').val(data.RT);
-                        $('#RW').val(data.RW);
-                        $('#usia').val(data.usia);
-                        $('#status_pekerjaan').val(data.status_pekerjaan);
-                        $('#pendapatan').val(data.pendapatan);
-                        $('#jumlah_tanggungan_anak').val(data.jumlah_tanggungan_anak);
-                        $('#kepemilikan_rumah').val(data.kepemilikan_rumah);
+        if (wargaId) {
+            $.ajax({
+                url: '/get-warga/' + wargaId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#alamat').val(data.alamat);
+                    $('#NIK').val(data.NIK);
+                    $('#kelurahan').val(data.kelurahan);
+                    $('#kecamatan').val(data.kecamatan);
+                    $('#RT').val(data.RT);
+                    $('#RW').val(data.RW);
+                    $('#usia').val(data.usia);
+                    $('#status_pekerjaan').val(data.status_pekerjaan);
+                    $('#pendapatan').val(data.pendapatan);
+                    $('#jumlah_tanggungan_anak').val(data.jumlah_tanggungan_anak);
+                    $('#kepemilikan_rumah').val(data.kepemilikan_rumah);
 
-                    },
-                    error: function() {
-                        alert('Gagal mengambil data warga.');
-                    }
-                });
-            } else {
-                $('#alamat').val('');
-                $('#NIK').val('');
-                $('#kelurahan').val('');
-                $('#kecamatan').val('');
-                $('#RT').val('');
-                $('#RW').val('');
-                $('#usia').val('');
-                $('#status_pekerjaan').val('');
-                $('#pendapatan').val('');
-                $('#jumlah_tanggungan_anak').val('');
-                $('#kepemilikan_rumah').val('');
-            }
-        });
+                },
+                error: function() {
+                    alert('Gagal mengambil data warga.');
+                }
+            });
+        } else {
+            $('#alamat').val('');
+            $('#NIK').val('');
+            $('#kelurahan').val('');
+            $('#kecamatan').val('');
+            $('#RT').val('');
+            $('#RW').val('');
+            $('#usia').val('');
+            $('#status_pekerjaan').val('');
+            $('#pendapatan').val('');
+            $('#jumlah_tanggungan_anak').val('');
+            $('#kepemilikan_rumah').val('');
+        }
     });
+});
 </script>
 
 <script>
-    $(document).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+$(document).ready(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
-        $('#warga_id').change(function() {
-            var wargaId = $(this).val();
-            // Set data-warga_id pada tombol hitungButton
-            $('#hitungButton').data('warga_id', wargaId);
-        });
+    $('#warga_id').change(function() {
+        var wargaId = $(this).val();
+        // Set data-warga_id pada tombol hitungButton
+        $('#hitungButton').data('warga_id', wargaId);
+    });
 
-        $('#hitungButton').click(function(e) {
-            e.preventDefault();
+    $('#hitungButton').click(function(e) {
+        e.preventDefault();
 
-            var wargaId = $(this).data('warga_id');
+        var wargaId = $(this).data('warga_id');
 
-            if (!wargaId) {
-                alert('Belum memilih nama warga!');
-                return;
-            }
+        if (!wargaId) {
+            alert('Belum memilih nama warga!');
+            return;
+        }
 
-            var data = {
-                usia: $('#usia').val(),
-                status_pekerjaan: $('#status_pekerjaan').val(),
-                pendapatan: $('#pendapatan').val(),
-                jumlah_tanggungan_anak: $('#jumlah_tanggungan_anak').val(),
-                kepemilikan_rumah: $('#kepemilikan_rumah').val(),
-                warga_id: wargaId,
-            };
+        var data = {
+            usia: $('#usia').val(),
+            status_pekerjaan: $('#status_pekerjaan').val(),
+            pendapatan: $('#pendapatan').val(),
+            jumlah_tanggungan_anak: $('#jumlah_tanggungan_anak').val(),
+            kepemilikan_rumah: $('#kepemilikan_rumah').val(),
+            warga_id: wargaId,
+        };
 
-            $.ajax({
-                url: '/hitung',  // URL untuk menghitung data
-                type: 'POST',
-                data: data,
-                dataType: 'json',
-                success: function(response) {
-                    if (response.success) {
-                        $('#k1').val(response.k1);
-                        $('#k2').val(response.k2);
-                        $('#k3').val(response.k3);
-                        $('#k4').val(response.k4);
-                        $('#k5').val(response.k5);
-                        $('#nilai_akhir').val(response.nilai_akhir);
-                        $('#wargaId').val(response.warga_id)
-                    } else {
-                        alert('Terjadi kesalahan saat perhitungan.');
-                    }
-                },
-                error: function() {
-                    alert('Gagal mengirim data untuk perhitungan.');
+        $.ajax({
+            url: '/hitung', // URL untuk menghitung data
+            type: 'POST',
+            data: data,
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    $('#k1').val(response.k1);
+                    $('#k2').val(response.k2);
+                    $('#k3').val(response.k3);
+                    $('#k4').val(response.k4);
+                    $('#k5').val(response.k5);
+                    $('#nilai_akhir').val(response.nilai_akhir);
+                    $('#wargaId').val(response.warga_id)
+
+                    $('#form-hasil').show();
+                } else {
+                    alert('Terjadi kesalahan saat perhitungan.');
                 }
-            });
+            },
+            error: function() {
+                alert('Gagal mengirim data untuk perhitungan.');
+            }
         });
     });
+});
 </script>
 
 
@@ -297,12 +300,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-        $('#warga_id').select2({
-            placeholder: "-- Pilih Warga --",
-            allowClear: true
-        });
+$(document).ready(function() {
+    $('#warga_id').select2({
+        placeholder: "-- Pilih Warga --",
+        allowClear: true
     });
+});
 </script>
 
 
