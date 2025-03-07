@@ -37,11 +37,11 @@
             <div class="hidden md:block w-full md:w-auto" id="navbar-default">
                 <ul
                     class="flex flex-col md:flex-row md:space-x-8 p-4 md:p-0 mt-4 md:mt-0 bg-gray-50 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900">
-                    <li><a href="#" class="block py-2 px-3 hover:text-blue-700 dark:text-white">Beranda</a></li>
-                    <li><a href="#"
+                    <li><a href="#home" class="block py-2 px-3 hover:text-blue-700 dark:text-white">Beranda</a></li>
+                    <li><a href="#pengumuman"
                             class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">Pengumuman</a>
                     </li>
-                    <li><a href="#" class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">Kontak
+                    <li><a href="#kontak" class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">Kontak
                             Kami</a></li>
                     <li>
 
@@ -67,7 +67,7 @@
     </nav>
 
     <!-- Home Section -->
-    <section class="home min-h-full px-30 py-10 bg-[#113d3c] text-white">
+    <section id="home" class="home min-h-full px-30 py-10 bg-[#113d3c] text-white">
         <div class="flex flex-col md:flex-row justify-between items-center gap-10">
             <div>
                 <h1 class="font-bold text-4xl sm:text-5xl md:text-6xl lg:text-5xl leading-tight">
@@ -113,9 +113,9 @@
             <p class="text-center font-semibold text-2xl text-[#113D3C]">Cari Informasi Penerima Bantuan !</p></br>
             <div class="flex justify-center items-center">
                 <div class="flex space-x-4">
-                    <input type="text" placeholder="Cari NIK..."
+                    <input type="text" id="searchNIK" placeholder="Cari NIK..."
                         class="px-6 py-3 w-96 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    <button
+                    <button id="searchButton"
                         class="px-6 py-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
                         Cari
                     </button>
@@ -132,9 +132,9 @@
                                 <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">NIK</th>
                             </tr>
                         </thead>
-                        <tbody class="text-sm">
+                        <tbody class="text-sm" id="rekomendasiTabelBody">
                             @foreach ($rekomendasi as $index => $item)
-                            <tr class="border-b hover:bg-blue-50 transition-colors duration-200">
+                            <tr class="border-b hover:bg-blue-50 transition-colors duration-200" data-nik="{{ $item->warga->NIK }}">
                                 <td class="px-6 py-4 text-gray-800">{{ $index + 1 }}</td>
                                 <td class="px-6 py-4 text-gray-800">{{ $item->warga->nama }}</td>
                                 <td class="px-6 py-4 text-gray-800">{{ $item->warga->NIK }}</td>
@@ -149,46 +149,115 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#113d3c] text-gray-100 py-10">
-        <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 px-5">
-            <div>
-                <img src="{{ asset('image\Logo_Kota_Kediri_-_Seal_of_Kediri_City.svg') }}" class="h-12" alt="Logo" />
-                <p class="mt-3">A part of Kediri The Service City<br>Melayani Sepenuh Hati</p>
+    <footer id="kontak" class="bg-[#113d3c] text-gray-100 py-10">
+        <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-5">
+            <!-- Kolom Pertama: Logo dan Deskripsi -->
+            <div class="flex flex-col items-center md:items-start">
+                <img src="{{ asset('image\Logo_Kota_Kediri_-_Seal_of_Kediri_City.svg') }}" class="h-16 mb-4" alt="Logo" />
+                <p class="text-center md:text-left text-sm opacity-80">A part of Kediri The Service City<br>Melayani Sepenuh Hati</p>
             </div>
-            <div>
-                <h4 class="font-bold mb-3">Navigation</h4>
+
+            <!-- Kolom Kedua: Navigasi -->
+            <div class="text-center md:text-left">
+                <h4 class="font-bold text-lg mb-4">Navigation</h4>
                 <ul>
-                    <li><a href="#" class="hover:underline">Home</a></li>
-                    <li><a href="#" class="hover:underline">About Us</a></li>
-                    <li><a href="#" class="hover:underline">Laman Perangkingan</a></li>
+                    <li><a href="#home" class="hover:underline hover:text-[#f1c40f] transition-all">Beranda</a></li>
+                    <li><a href="#pengumuman" class="hover:underline hover:text-[#f1c40f] transition-all">Pengumuman</a></li>
+                    <li><a href="#" class="hover:underline hover:text-[#f1c40f] transition-all">Hubungi</a></li>
                 </ul>
             </div>
-            <div>
-                <h4 class="font-bold mb-3">Contact Us</h4>
-                <ul>
-                    <li><i class="fa-solid fa-location-dot"></i> Kediri, Jawa Timur</li>
-                    <li><i class="fa-solid fa-envelope"></i> kediri@mail.com</li>
-                    <li><i class="fa-solid fa-phone"></i> +6285923232323</li>
+
+            <!-- Kolom Ketiga: Contact Us -->
+            <div class="text-center md:text-left">
+                <h4 class="font-bold text-lg mb-4">Contact Us</h4>
+                <ul class="space-y-3">
+                    <li class="flex items-center">
+                        <i class="fa-solid fa-location-dot mr-2"></i>
+                        <span>Kediri, Jawa Timur</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fa-solid fa-envelope mr-2"></i>
+                        <span>kediri@mail.com</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fa-solid fa-phone mr-2"></i>
+                        <span>+6285923232323</span>
+                    </li>
                 </ul>
             </div>
         </div>
-        <div class="border-t border-gray-600 mt-5 pt-5 text-center">
-            <p class="text-sm">&copy; 2025 Kediri. All Rights Reserved.</p>
+
+        <!-- Footer Bottom Section -->
+        <div class="border-t border-gray-600 mt-8 pt-4 text-center">
+            <p class="text-sm opacity-70">&copy; 2025 Kediri. All Rights Reserved.</p>
         </div>
     </footer>
+
 
     <script src="https://kit.fontawesome.com/998802c292.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
     <script>
-    AOS.init();
+        AOS.init();
 
-    document.getElementById("scrollBtn").addEventListener("click", function() {
-        document.getElementById("pengumuman").scrollIntoView({
-            behavior: "smooth"
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener("click", function (event) {
+                event.preventDefault(); // Mencegah navigasi default
+
+                // Mendapatkan href yang mengarah ke id tujuan
+                const targetId = this.getAttribute("href");
+
+                const targetElement = document.querySelector(targetId);
+
+                // Scroll ke target section dengan smooth scroll
+                window.scrollTo({
+                    top: targetElement.offsetTop - 60, // Menyesuaikan offset jika ada header sticky
+                    behavior: 'smooth' // Mengaktifkan smooth scroll
+                });
+            });
         });
-    });
+
+        document.getElementById('scrollBtn').addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const targetElement = document.getElementById('pengumuman');
+
+            window.scrollTo({
+                top: targetElement.offsetTop - 60, // Offset untuk sticky header (ganti 60 dengan tinggi header Anda)
+                behavior: 'smooth'
+            });
+        });
+
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchNIK');
+            const searchButton = document.getElementById('searchButton');
+            const tableBody = document.getElementById('rekomendasiTabelBody');
+            const rows = tableBody.getElementsByTagName('tr');
+
+            function filterTable() {
+                const searchTerm = searchInput.value.toLowerCase(); 
+
+                for (let row of rows) {
+                    const nikCell = row.getElementsByTagName('td')[2];
+                    const nikText = nikCell.textContent.toLowerCase();
+
+                    if (nikText.includes(searchTerm)) {
+                        row.style.display = ''; 
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            }
+
+            searchButton.addEventListener('click', filterTable);
+
+            searchInput.addEventListener('input', filterTable);
+        });
+    </script>
+
 </body>
 
 </html>
