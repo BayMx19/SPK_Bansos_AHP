@@ -41,7 +41,8 @@
                     <li><a href="#pengumuman"
                             class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">Pengumuman</a>
                     </li>
-                    <li><a href="#kontak" class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">Kontak
+                    <li><a href="#kontak"
+                            class="block py-2 px-3 text-gray-900 hover:text-blue-700 dark:text-white">Kontak
                             Kami</a></li>
                     <li>
 
@@ -134,7 +135,8 @@
                         </thead>
                         <tbody class="text-sm" id="rekomendasiTabelBody">
                             @foreach ($rekomendasi as $index => $item)
-                            <tr class="border-b hover:bg-blue-50 transition-colors duration-200" data-nik="{{ $item->warga->NIK }}">
+                            <tr class="border-b hover:bg-blue-50 transition-colors duration-200"
+                                data-nik="{{ $item->warga->NIK }}">
                                 <td class="px-6 py-4 text-gray-800">{{ $index + 1 }}</td>
                                 <td class="px-6 py-4 text-gray-800">{{ $item->warga->nama }}</td>
                                 <td class="px-6 py-4 text-gray-800">{{ $item->warga->NIK }}</td>
@@ -153,8 +155,10 @@
         <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-5">
             <!-- Kolom Pertama: Logo dan Deskripsi -->
             <div class="flex flex-col items-center md:items-start">
-                <img src="{{ asset('image\Logo_Kota_Kediri_-_Seal_of_Kediri_City.svg') }}" class="h-16 mb-4" alt="Logo" />
-                <p class="text-center md:text-left text-sm opacity-80">A part of Kediri The Service City<br>Melayani Sepenuh Hati</p>
+                <img src="{{ asset('image\Logo_Kota_Kediri_-_Seal_of_Kediri_City.svg') }}" class="h-16 mb-4"
+                    alt="Logo" />
+                <p class="text-center md:text-left text-sm opacity-80">A part of Kediri The Service City<br>Melayani
+                    Sepenuh Hati</p>
             </div>
 
             <!-- Kolom Kedua: Navigasi -->
@@ -162,7 +166,8 @@
                 <h4 class="font-bold text-lg mb-4">Navigation</h4>
                 <ul>
                     <li><a href="#home" class="hover:underline hover:text-[#f1c40f] transition-all">Beranda</a></li>
-                    <li><a href="#pengumuman" class="hover:underline hover:text-[#f1c40f] transition-all">Pengumuman</a></li>
+                    <li><a href="#pengumuman" class="hover:underline hover:text-[#f1c40f] transition-all">Pengumuman</a>
+                    </li>
                     <li><a href="#" class="hover:underline hover:text-[#f1c40f] transition-all">Hubungi</a></li>
                 </ul>
             </div>
@@ -198,64 +203,65 @@
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
     <script>
-        AOS.init();
+    AOS.init();
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener("click", function (event) {
-                event.preventDefault(); // Mencegah navigasi default
-
-                // Mendapatkan href yang mengarah ke id tujuan
-                const targetId = this.getAttribute("href");
-
-                const targetElement = document.querySelector(targetId);
-
-                // Scroll ke target section dengan smooth scroll
-                window.scrollTo({
-                    top: targetElement.offsetTop - 60, // Menyesuaikan offset jika ada header sticky
-                    behavior: 'smooth' // Mengaktifkan smooth scroll
-                });
-            });
-        });
-
-        document.getElementById('scrollBtn').addEventListener('click', function(event) {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function(event) {
             event.preventDefault();
 
-            const targetElement = document.getElementById('pengumuman');
+            const targetId = this.getAttribute("href");
+
+            const targetElement = document.querySelector(targetId);
 
             window.scrollTo({
-                top: targetElement.offsetTop - 60, // Offset untuk sticky header (ganti 60 dengan tinggi header Anda)
+                top: targetElement.offsetTop - 60,
                 behavior: 'smooth'
             });
         });
+    });
 
+    document.getElementById('scrollBtn').addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const targetElement = document.getElementById('pengumuman');
+
+        window.scrollTo({
+            top: targetElement.offsetTop -
+                60,
+            behavior: 'smooth'
+        });
+    });
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchNIK');
-            const searchButton = document.getElementById('searchButton');
-            const tableBody = document.getElementById('rekomendasiTabelBody');
-            const rows = tableBody.getElementsByTagName('tr');
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchNIK');
+        const searchButton = document.getElementById('searchButton');
+        const tableBody = document.getElementById('rekomendasiTabelBody');
+        const rows = tableBody.getElementsByTagName('tr');
 
-            function filterTable() {
-                const searchTerm = searchInput.value.toLowerCase(); 
+        function filterTable() {
+            const searchTerm = searchInput.value.toLowerCase();
 
-                for (let row of rows) {
-                    const nikCell = row.getElementsByTagName('td')[2];
-                    const nikText = nikCell.textContent.toLowerCase();
+            for (let row of rows) {
+                const nameCell = row.getElementsByTagName('td')[1];
+                const nikCell = row.getElementsByTagName('td')[2];
 
-                    if (nikText.includes(searchTerm)) {
-                        row.style.display = ''; 
-                    } else {
-                        row.style.display = 'none';
-                    }
+                const nameText = nameCell.textContent.toLowerCase();
+                const nikText = nikCell.textContent.toLowerCase();
+
+                if (nameText.includes(searchTerm) || nikText.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
                 }
             }
+        }
 
-            searchButton.addEventListener('click', filterTable);
+        searchButton.addEventListener('click', filterTable);
 
-            searchInput.addEventListener('input', filterTable);
-        });
+        searchInput.addEventListener('input', filterTable);
+    });
     </script>
 
 </body>
