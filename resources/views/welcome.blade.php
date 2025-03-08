@@ -13,6 +13,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <!-- SwiperJS Styles -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <title>Bantuan Sosial AHP</title>
 </head>
 
@@ -90,24 +92,35 @@
         </div>
     </section>
 
-    <!-- Info Section -->
+    <!-- Carousel Section -->
     <section class="about py-10 bg-gray-200">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 px-20">
-            <div class="bg-white p-6 rounded-lg shadow-md hover:bg-gray-100" data-aos="fade-up" data-aos-delay="400">
-                <h5 class="mb-2 text-2xl font-bold text-gray-900">Program 1</h5>
-                <p class="text-gray-700">Deskripsi singkat mengenai program bantuan sosial pertama.</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-md hover:bg-gray-100" data-aos="fade-up" data-aos-delay="400">
-                <h5 class="mb-2 text-2xl font-bold text-gray-900">Program 2</h5>
-                <p class="text-gray-700">Deskripsi singkat mengenai program bantuan sosial kedua.</p>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow-md hover:bg-gray-100" data-aos="fade-up" data-aos-delay="400">
-                <h5 class="mb-2 text-2xl font-bold text-gray-900">Program 3</h5>
-                <p class="text-gray-700">Deskripsi singkat mengenai program bantuan sosial ketiga.</p>
+        <div class="max-w-4xl mx-auto">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide">
+                        <img src="{{ asset('/image/bansos/image-1.jpeg') }}" alt="Program 1"
+                            class="w-full rounded-lg shadow-md">
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide">
+                        <img src="{{ asset('/image/bansos/image-2.jpg') }}" alt="Program 2"
+                            class="w-full rounded-lg shadow-md">
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide">
+                        <img src="{{ asset('/image/bansos/image-3.jpg') }}" alt="Program 3"
+                            class="w-full rounded-lg shadow-md">
+                    </div>
+                </div>
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Navigation -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
     </section>
-
     <!-- Pengumuman Section -->
     <section id="pengumuman" class="bansos py-10 bg-gray-200">
         <div class="bg-white p-6 rounded-lg shadow-md hover:bg-gray-100">
@@ -263,7 +276,28 @@
         searchInput.addEventListener('input', filterTable);
     });
     </script>
+    <!-- SwiperJS Script -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+    var swiper = new Swiper(".mySwiper", {
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+    </script>
 
 </body>
+
+
 
 </html>
