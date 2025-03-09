@@ -79,9 +79,12 @@
                     Kediri, Jawa Timur
                 </h1>
                 <p class="my-6 text-gray-400 text-sm md:text-base">
-                    Bantuan sosial (Bansos) adalah sebagai bentuk dukungan atau bantuan <br> yang diberikan oleh
-                    pemerintah kepada masyarakat untuk membantu <br> meringankan beban ekonomi, terutama bagi mereka
-                    yang kurang mampu <br> atau berada dalam kondisi rentan.
+                    Selamat datang di Sistem Pendukung Keputusan (SPK) Bansos Kelurahan Campurejo! <br>Website ini
+                    dirancang
+                    untuk mempermudah proses penyaluran bantuan sosial secara transparan dan akurat. <br>Temukan
+                    informasi
+                    terkait kriteria penerima dan hasil keputusan secara real-time di sini. <br>Kami berkomitmen untuk
+                    memberikan layanan terbaik demi kesejahteraan masyarakat Campurejo.
                 </p>
                 <button id="scrollBtn" class="rounded-md bg-[#ed722a] font-bold px-5 py-2">Pengumuman</button>
             </div>
@@ -297,6 +300,8 @@
     </script>
 
 </body>
+
+
 
 
 
