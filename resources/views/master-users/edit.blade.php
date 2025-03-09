@@ -63,13 +63,29 @@
                             <div class="row">
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
+                                        <label>RT</label>
+                                        <input type="text" class="form-control" name="RT" value="{{ $user->RT }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pl-1">
+                                    <div class="form-group">
+                                        <label>RW</label>
+                                        <input type="text" class="form-control" name="RW" value="{{ $user->RW }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class=" row">
+                                <div class="col-md-6 pr-1">
+                                    <div class="form-group">
                                         <label>Status</label>
                                         <select class="form-control" name="status" required>
 
                                             <option value="ACTIVE" {{ $user->status == 'ACTIVE' ? 'selected' : '' }}>
                                                 ACTIVE</option>
                                             <option value="INACTIVE"
-                                                {{ $user->status == 'INACTIVE' ? 'selected' : '' }}>INACTIVE</option>
+                                                {{ $user->status == 'INACTIVE' ? 'selected' : '' }}>INACTIVE
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -82,5 +98,6 @@
             </div>
         </div>
     </div>
+
 </div>
 @endsection

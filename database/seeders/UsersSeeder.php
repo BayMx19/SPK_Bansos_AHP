@@ -30,6 +30,8 @@ class UsersSeeder extends Seeder
             'username' => "RT 1",
             'role' => "RT",
             'alamat' => "Kediri",
+            'RT' => "002",
+            'RW' => "013",
             'email' => "rt1@gmail.com",
             'password' => Hash::make('rt1'),
             'status' => "ACTIVE",

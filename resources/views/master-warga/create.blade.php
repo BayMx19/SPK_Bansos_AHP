@@ -38,13 +38,13 @@
                                 <div class="col-md-4 px-1">
                                     <div class="form-group">
                                         <label>Kecamatan</label>
-                                        <input type="text" class="form-control" name="kecamatan" required>
+                                        <input type="text" class="form-control" name="kecamatan">
                                     </div>
                                 </div>
                                 <div class="col-md-4 pl-1">
                                     <div class="form-group">
                                         <label>Kelurahan</label>
-                                        <input type="text" class="form-control" name="kelurahan" required>
+                                        <input type="text" class="form-control" name="kelurahan">
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>RT</label>
-                                        <input type="text" class="form-control" name="RT" required>
+                                        <input type="text" class="form-control" name="RT">
                                     </div>
                                 </div>
                                 <div class="col-md-6 pl-1">

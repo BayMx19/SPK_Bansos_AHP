@@ -13,8 +13,17 @@ class WargaController extends Controller
 {
     public function index()
     {
-        $warga = WargaModel::all();
-        return view('/master-warga.index', compact('warga'));
+        $user = auth()->user();
+
+        if ($user->role == 'Staff Kelurahan') {
+            $warga = WargaModel::all();
+        } else {
+            if ($user->RT) {
+                $warga = WargaModel::where('RT', $user->RT)->get();
+            } else {
+                $warga = collect();
+            }
+        }        return view('/master-warga.index', compact('warga'));
     }
 
     public function create(){

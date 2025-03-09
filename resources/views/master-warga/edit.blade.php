@@ -42,14 +42,14 @@
                                     <div class="form-group">
                                         <label>Kecamatan</label>
                                         <input type="text" class="form-control" name="kecamatan"
-                                            value="{{$warga->kecamatan}}" required>
+                                            value="{{$warga->kecamatan}}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 pl-1">
                                     <div class="form-group">
                                         <label>Kelurahan</label>
                                         <input type="text" class="form-control" name="kelurahan"
-                                            value="{{$warga->kelurahan}}" required>
+                                            value="{{$warga->kelurahan}}">
                                     </div>
                                 </div>
                             </div>
@@ -57,8 +57,7 @@
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>RT</label>
-                                        <input type="text" class="form-control" name="RT" value="{{ $warga->RT }}"
-                                            required>
+                                        <input type="text" class="form-control" name="RT" value="{{ $warga->RT }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6 pl-1">
@@ -73,8 +72,8 @@
                                 <div class="col-md-4 pr-1">
                                     <div class="form-group">
                                         <label>Usia</label>
-                                        <input type="number" class="form-control" name="usia" value="{{ $warga->usia }}"
-                                            required>
+                                        <input type="number" class="form-control" name="usia"
+                                            value="{{ $warga->usia }}">
                                     </div>
                                 </div>
                                 <div class="col-md-4 px-1">
