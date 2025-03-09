@@ -1,6 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+.floating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #dc3545;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.floating-btn:hover {
+    background-color: #c82333;
+}
+</style>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -58,7 +76,11 @@
             </div>
 
         </div>
+        <a href="{{ route('perhitungan.pdf') }}" class="floating-btn">
+            Download PDF
+        </a>
     </div>
 </div>
+
 
 @endsection

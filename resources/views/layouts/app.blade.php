@@ -37,18 +37,7 @@
         <div class="main-panel">
             @include('layouts.navbar')
             @yield('content')
-            <footer class="footer">
-                <div class="container-fluid">
-                    <nav>
 
-                        <p class="copyright text-center">
-
-
-                            &copy; 2025 Kediri. All Rights Reserved.</p>
-
-                    </nav>
-                </div>
-            </footer>
         </div>
 
     </div>

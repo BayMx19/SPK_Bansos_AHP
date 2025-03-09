@@ -87,5 +87,6 @@ Route::middleware(['auth', 'checkrole:Staff Kelurahan'])->group(function () {
     Route::get('/perhitungan/{id}/edit', [PerhitunganController::class, 'edit'])->name('perhitungan.edit');
     Route::put('/perhitungan/{id}', [PerhitunganController::class, 'update'])->name('perhitungan.update');
     Route::delete('/perhitungan/{id}', [PerhitunganController::class, 'destroy'])->name('perhitungan.destroy');
+    Route::get('/perhitungan/pdf', [PerhitunganController::class, 'downloadPDF'])->name('perhitungan.pdf');
 
 });

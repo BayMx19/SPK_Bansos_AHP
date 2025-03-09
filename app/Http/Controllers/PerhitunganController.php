@@ -7,6 +7,7 @@ use App\Models\CriteriaModel;
 use App\Models\PerhitunganModel;
 use App\Models\SubCriteriaModel;
 use App\Models\WargaModel;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -172,7 +173,11 @@ class PerhitunganController extends Controller
 
         return redirect('perhitungan')->with('success', 'Data perhitungan berhasil dihapus');
     }
-
-
+    public function downloadPDF()
+    {
+        $perhitungan = PerhitunganModel::all();
+        $pdf = Pdf::loadView('perhitungan.report', compact('perhitungan'));
+        return $pdf->download('Perhitungan_AHP.pdf');
+    }
 
 }
