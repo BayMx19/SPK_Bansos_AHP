@@ -81,7 +81,7 @@
 
         </div>
         <a href="{{ route('perhitungan.pdf') }}" class="floating-btn">
-            Download PDF
+            <i class="nc-icon nc-cloud-download-93"> Download PDF</i>
         </a>
     </div>
 </div>
