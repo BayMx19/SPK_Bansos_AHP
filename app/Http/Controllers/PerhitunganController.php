@@ -78,7 +78,7 @@ class PerhitunganController extends Controller
         $k3 = sprintf("%.9f", $pendapatan_criteria*$nilai_pendapatan_subcriteria);
         $k4 = sprintf("%.9f", $anak_criteria*$nilai_anak_subcriteria);
         $k5 = sprintf("%.9f", $rumah_criteria*$nilai_rumah_subcriteria);
-        $nilai_akhir = sprintf("%.9f", $k1+$k2+$k3+$k4+$k5, 9);
+        $nilai_akhir = min(1.00000, sprintf("%.9f", $k1 + $k2 + $k3 + $k4 + $k5));
         $warga_id = $request->input('warga_id');
 
         return response()->json([
