@@ -9,14 +9,18 @@
     background-color: #dc3545;
     color: white;
     padding: 12px 20px;
-    border-radius: 50px;
+    border-radius: 10px;
     text-decoration: none;
+    border: 2px solid #dc3545;
     font-weight: bold;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .floating-btn:hover {
-    background-color: #c82333;
+    background-color: white;
+    border: 2px solid #dc3545;
+    color: #dc3545;
+
 }
 </style>
 <div class="content">
