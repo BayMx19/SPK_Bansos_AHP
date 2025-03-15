@@ -13,8 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <!-- SwiperJS Styles -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/css/splide.min.css">
     <title>Bantuan Sosial AHP</title>
 </head>
 
@@ -98,29 +97,26 @@
     <!-- Carousel Section -->
     <section class="about py-10 bg-gray-200">
         <div class="max-w-4xl mx-auto">
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    <!-- Slide 1 -->
-                    <div class="swiper-slide">
-                        <img src="{{ asset('/image/bansos/image-1.jpeg') }}" alt="Program 1"
-                            class="w-full rounded-lg shadow-md">
-                    </div>
-                    <!-- Slide 2 -->
-                    <div class="swiper-slide">
-                        <img src="{{ asset('/image/bansos/image-2.jpg') }}" alt="Program 2"
-                            class="w-full rounded-lg shadow-md">
-                    </div>
-                    <!-- Slide 3 -->
-                    <div class="swiper-slide">
-                        <img src="{{ asset('/image/bansos/image-3.jpg') }}" alt="Program 3"
-                            class="w-full rounded-lg shadow-md">
-                    </div>
+            <div id="image-carousel" class="splide">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <!-- Slide 1 -->
+                        <li class="splide__slide">
+                            <img src="{{ asset('/image/bansos/image-1.jpeg') }}" alt="Program 1"
+                                class="w-full rounded-lg shadow-md">
+                        </li>
+                        <!-- Slide 2 -->
+                        <li class="splide__slide">
+                            <img src="{{ asset('/image/bansos/image-2.jpg') }}" alt="Program 2"
+                                class="w-full rounded-lg shadow-md">
+                        </li>
+                        <!-- Slide 3 -->
+                        <li class="splide__slide">
+                            <img src="{{ asset('/image/bansos/image-3.jpg') }}" alt="Program 3"
+                                class="w-full rounded-lg shadow-md">
+                        </li>
+                    </ul>
                 </div>
-                <!-- Pagination -->
-                <div class="swiper-pagination"></div>
-                <!-- Navigation -->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
             </div>
         </div>
     </section>
@@ -215,6 +211,7 @@
     </footer>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4/dist/js/splide.min.js"></script>
     <script src="https://kit.fontawesome.com/998802c292.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
@@ -279,26 +276,17 @@
         searchInput.addEventListener('input', filterTable);
     });
     </script>
-    <!-- SwiperJS Script -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
-    var swiper = new Swiper(".mySwiper", {
-        loop: true,
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
+    document.addEventListener("DOMContentLoaded", function() {
+        new Splide("#image-carousel", {
+            type: "loop",
+            autoplay: true,
+            interval: 3000,
+            arrows: false,
+            pagination: true,
+        }).mount();
     });
     </script>
-
 </body>
 
 
