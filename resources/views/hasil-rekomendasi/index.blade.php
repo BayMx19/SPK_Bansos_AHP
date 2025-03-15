@@ -31,9 +31,25 @@
                 <div class="card strpied-tabled-with-hover">
                     <div class="card-header judul">
                         <h4 class="card-title mb-2 text-bold">Hasil Rekomendasi</h4>
-
-
                     </div>
+                    @if(auth()->user()->role == 'Staff Kelurahan')
+                    <div class="card-body">
+                        <form action="{{ route('hasil-rekomendasi.updateLimit') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="limit">Jumlah Data Ditampilkan:</label>
+                                <input type="number" name="limit" id="limit" class="form-control" value="{{ $limit }}"
+                                    required>
+                            </div>
+                            <div class="row button-hitung">
+                                <div class="col-12 ">
+
+                                    <button type="submit" class="button-save float-right">Simpan</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    @endif
                     <div class="card-body table-full-width table-responsive mt-5">
                         <table class="table table-hover table-striped">
                             <thead>

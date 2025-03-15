@@ -48,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
     #Rute Hasil Rekomendasi
     Route::get('/hasil-rekomendasi', [RekomendasiController::class, 'index'])->name('hasil-rekomendasi');
     Route::get('/hasil-rekomendasi/pdf', [RekomendasiController::class, 'downloadPDF'])->name('hasil-rekomendasi.pdf');
+    Route::post('/hasil-rekomendasi/update-limit', [RekomendasiController::class, 'updateLimit'])->name('hasil-rekomendasi.updateLimit');
 
     });
 
