@@ -30,8 +30,8 @@
                                     <td>{{ $criteria->nama }}</td>
                                     <td>{{ $criteria->nilai_prioritas }}</td>
                                     <td>
-                                        <a href="{{ route('criteria.edit', $criteria->id) }}"
-                                            class="btn btn-warning btn-sm me-2">Edit</a>
+                                        <!-- <a href="{{ route('criteria.edit', $criteria->id) }}"
+                                            class="btn btn-warning btn-sm me-2">Edit</a> -->
 
                                         <form action="{{ route('criteria.destroy', $criteria->id) }}" method="POST"
                                             style="display:inline;">
