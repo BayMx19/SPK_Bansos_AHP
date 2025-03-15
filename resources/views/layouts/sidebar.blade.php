@@ -8,14 +8,14 @@
         </div>
         <ul class="nav">
             <li class="nav-item @if(request()->is('home')) active @endif">
-                <a class=" nav-link" href="{{'home'}}">
+                <a class=" nav-link" href="{{'/home'}}">
                     <i class="nc-icon nc-chart-pie-35"></i>
                     <p>Dashboard</p>
                 </a>
             </li>
             @if(auth()->check() && auth()->user()->role === 'Staff Kelurahan')
             <li class="nav-item @if(request()->is('master-users')) active @endif">
-                <a class=" nav-link" href="{{'master-users'}}">
+                <a class=" nav-link" href="{{'/master-users'}}">
                     <i class="nc-icon nc-single-02"></i>
                     <p>Master Users</p>
                 </a>
