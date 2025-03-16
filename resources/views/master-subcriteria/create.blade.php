@@ -141,23 +141,42 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#calculate").addEventListener("click", function() {
         let rows = document.querySelectorAll("#comparison-table tbody tr");
         let numSubCriteria = rows.length;
-        let totals = Array(numSubCriteria).fill(0);
         let matrix = [];
+        let columnTotals = Array(numSubCriteria).fill(0);
 
+        // Membaca nilai dari input dan membentuk matriks perbandingan
         rows.forEach((row, rowIndex) => {
             let values = Array.from(row.querySelectorAll(".comparison-input")).map(input =>
                 parseFloat(input.value) || 0);
-            totals[rowIndex] = values.reduce((sum, val) => sum + val, 0);
             matrix.push(values);
         });
 
-        let normalizedMatrix = matrix.map((row, rowIndex) => row.map(value => value / totals[
-        rowIndex]));
-        let columnSums = Array(numSubCriteria).fill(0);
-        normalizedMatrix.forEach(row => row.forEach((value, colIndex) => columnSums[colIndex] +=
-        value));
-        let priorities = columnSums.map(sum => sum / numSubCriteria);
+        // Menghitung total per kolom
+        for (let col = 0; col < numSubCriteria; col++) {
+            for (let row = 0; row < numSubCriteria; row++) {
+                columnTotals[col] += matrix[row][col];
+            }
+        }
 
+        // Normalisasi matriks
+        let normalizedMatrix = [];
+        let rowSums = Array(numSubCriteria).fill(0);
+        for (let row = 0; row < numSubCriteria; row++) {
+            normalizedMatrix[row] = [];
+            for (let col = 0; col < numSubCriteria; col++) {
+                let normalizedValue = matrix[row][col] / columnTotals[col];
+                normalizedMatrix[row][col] = normalizedValue;
+                rowSums[row] += normalizedValue;
+            }
+        }
+
+        // Menghitung total keseluruhan jumlah sub kriteria
+        let totalSum = rowSums.reduce((sum, value) => sum + value, 0);
+
+        // Menghitung nilai prioritas
+        let priorities = rowSums.map(value => value / totalSum);
+
+        // Menampilkan hasil
         let priorityHTML = "<h4><b>Nilai Prioritas</b></h4>";
         priorities.forEach((value, index) => {
             priorityHTML +=
@@ -171,4 +190,5 @@ document.addEventListener("DOMContentLoaded", function() {
     updateButtons();
 });
 </script>
+
 @endsection
