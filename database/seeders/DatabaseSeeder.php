@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             WargaSeeder::class,
             CriteriaSeeder::class,
             SubCriteriaSeeder::class,
-            PerhitunganSeeder::class
+            PerhitunganSeeder::class,
+            SettingsSeeder::class,
         ]);
     }
 }
