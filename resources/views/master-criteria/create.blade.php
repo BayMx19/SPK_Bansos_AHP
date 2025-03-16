@@ -13,6 +13,27 @@
                         <form action="{{ route('criteria.store') }}" method="POST">
                             @csrf
                             <div id="criteria-container">
+                                @foreach($criteria as $item)
+                                <div class="row criteria-item">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>Kode Kriteria</label>
+                                            <input type="text" class="form-control" name="kode_criteria[]" value="{{ old('kode_criteria[]', $item->kode_criteria) }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>Nama Kriteria</label>
+                                            <input type="text" class="form-control" name="nama_criteria[]" value="{{ old('nama_criteria[]', $item->nama) }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-end">
+                                        <button type="button" class="btn btn-success add-criteria">+</button>
+                                    </div>
+                                </div>
+                                @endforeach
+
+                                @if($criteria->isEmpty())
                                 <div class="row criteria-item">
                                     <div class="col-md-5">
                                         <div class="form-group">
@@ -30,6 +51,7 @@
                                         <button type="button" class="btn btn-success add-criteria">+</button>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                             <br>
                             <h4 class="text-bold">Tabel Perbandingan Kriteria</h4>
@@ -67,6 +89,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    let comparisonData = @json($analisa);
+    console.log(comparisonData);
+</script>
+
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -122,8 +150,10 @@ document.addEventListener("DOMContentLoaded", function() {
             let rowContent = `<td><strong>${name}</strong></td>`;
 
             criteriaNames.forEach((_, colIndex) => {
+                let value = (rowIndex === colIndex) ? 1 : (comparisonData[rowIndex] && comparisonData[rowIndex][colIndex] ? comparisonData[rowIndex][colIndex] : '');
+
                 rowContent +=
-                    `<td><input type="number" class="form-control text-center comparison-input" step="0.000000001" required value="${rowIndex === colIndex ? 1 : ''}"></td>`;
+                    `<td><input type="number" name="nilai_perbandingan[${rowIndex}][${colIndex}]" class="form-control text-center comparison-input" step="0.000000001" required value="${value}"></td>`;
             });
             row.innerHTML = rowContent;
             tbody.appendChild(row);
@@ -160,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function() {
         priorities.forEach((value, index) => {
             priorityHTML += `<div class="form-group">
                                     <label>Kriteria ${index + 1}</label>
-                                    <input type="text" class="form-control" value="${value.toFixed(9)}" readonly>
+                                    <input type="text" name="nilai_prioritas[]" class="form-control" value="${value.toFixed(9)}" readonly>
                                  </div>`;
         });
         document.querySelector("#priority-values").innerHTML = priorityHTML;
@@ -169,6 +199,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("#criteria-container").addEventListener("input", updateComparisonTable);
     updateButtons();
+
+    updateComparisonTable();
 });
 </script>
 @endsection
