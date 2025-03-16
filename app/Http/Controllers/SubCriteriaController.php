@@ -40,12 +40,12 @@ class SubCriteriaController extends Controller
             return redirect('/master-subcriteria')->with('error', 'Gagal menambahkan Sub Criteria: Coba Lagi' );
         }
     }
-    public function edit($id)
-    {
-        $criteria = CriteriaModel::all();
-        $subcriteria = SubCriteriaModel::with('criteria')->findOrFail($id);
-        return view('master-subcriteria.edit', compact('criteria','subcriteria'));
-    }
+    // public function edit($id)
+    // {
+    //     $criteria = CriteriaModel::all();
+    //     $subcriteria = SubCriteriaModel::with('criteria')->findOrFail($id);
+    //     return view('master-subcriteria.edit', compact('criteria','subcriteria'));
+    // }
     public function update(Request $request, $id)
     {
 
@@ -66,6 +66,12 @@ class SubCriteriaController extends Controller
         $subcriteria->delete();
 
         return redirect('master-subcriteria')->with('success', 'Data berhasil dihapus!');
+    }
+
+    public function detail()
+    {
+        $criteria = CriteriaModel::all();
+        return view('master-subcriteria.edit', compact('criteria'));
     }
 
 }

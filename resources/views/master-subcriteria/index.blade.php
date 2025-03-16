@@ -74,7 +74,7 @@
 
         <!-- Button untuk membuka modal -->
         <a href="#" class="floating-btn" data-toggle="modal" data-target="#detailModal">
-            <i class="nc-icon nc-notes"> Detail Sub Kriteria</i>
+            <i class="nc-icon nc-notes"> Lihat Detail</i>
         </a>
 
         <!-- Modal Detail Sub Kriteria -->
@@ -104,7 +104,8 @@
                     <div class="row modal-footer">
                         <div class="row button-hitung">
                             <div class="col-12 ">
-                                <a href=""><button type="button" class="button-detail">Lihat</button></a>
+                                <a href="/master-subcriteria/detail"><button type="button"
+                                        class="button-detail">Lihat</button></a>
                             </div>
                         </div>
                     </div>
