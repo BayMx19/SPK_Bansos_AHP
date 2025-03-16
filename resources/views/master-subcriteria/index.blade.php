@@ -1,6 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+.floating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffc107;
+    color: black;
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 2px solid #ffc107;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none !important;
+}
+
+.floating-btn:hover {
+    background-color: white;
+    border: 2px solid #ffc107;
+    color: black;
+}
+</style>
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -31,12 +53,8 @@
                                     <td>{{ $subcriteria->criteria->nama }}</td>
                                     <td>{{ $subcriteria->sub_criteria }}</td>
                                     <td>{{ $subcriteria->bobot }}</td>
-
                                     <td>{{ $subcriteria->nilai_prioritas }}</td>
                                     <td>
-                                        <a href="{{ route('subcriteria.edit', $subcriteria->id) }}"
-                                            class="btn btn-warning btn-sm me-2">Edit</a>
-
                                         <form action="{{ route('subcriteria.destroy', $subcriteria->id) }}"
                                             method="POST" style="display:inline;">
                                             @csrf
@@ -52,7 +70,46 @@
                     </div>
                 </div>
             </div>
+        </div>
 
+        <!-- Button untuk membuka modal -->
+        <a href="#" class="floating-btn" data-toggle="modal" data-target="#detailModal">
+            <i class="nc-icon nc-notes"> Detail Sub Kriteria</i>
+        </a>
+
+        <!-- Modal Detail Sub Kriteria -->
+        <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detailModalLabel">Detail Sub Kriteria</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="criteriaSelect">Pilih Kriteria</label>
+                                <select class="form-control" id="criteriaSelect">
+                                    <option value="">-- Pilih Kriteria --</option>
+                                    @foreach($criteria as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row modal-footer">
+                        <div class="row button-hitung">
+                            <div class="col-12 ">
+                                <a href=""><button type="button" class="button-detail">Lihat</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -13,9 +13,10 @@ class SubCriteriaController extends Controller
 {
     public function index()
     {
+        $criteria = CriteriaModel::all();
         $subcriteria = SubCriteriaModel::with('criteria')->get();
 
-        return view('/master-subcriteria.index', compact('subcriteria'));
+        return view('/master-subcriteria.index', compact('criteria','subcriteria'));
     }
     public function create(){
         $criteria = CriteriaModel::all();

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -9,8 +10,8 @@
                     <div class="card-header judul">
                         <h4 class="card-title mb-2 text-bold">Master Kriteria</h4>
                         <div class="button-container">
-                            <a href="{{'/master-criteria/create'}}"><button class="button-add">Tambah
-                                    Kriteria</button></a>
+                            <a href="{{'/master-criteria/create'}}"><button class="button-add"> <i
+                                        class="nc-icon nc-notes"> Lihat Detail </i></button></a>
                         </div>
                     </div>
                     <div class="card-body table-full-width table-responsive mt-5">
@@ -50,6 +51,7 @@
             </div>
 
         </div>
+
     </div>
 </div>
 @endsection

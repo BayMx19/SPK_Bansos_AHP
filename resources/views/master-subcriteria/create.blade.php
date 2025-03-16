@@ -12,51 +12,163 @@
                     <div class="card-body">
                         <form action="{{ route('subcriteria.store') }}" method="POST">
                             @csrf
-                            <div class="row">
-                                <div class="col-md-12 " style="padding : 6px;">
-                                    <div class="form-group">
-                                        <label>Kriteria</label>
-                                        <select name="criteria_id" class="form-control" required>
-                                            <option value="">-- Pilih Kriteria --</option>
-                                            @foreach($criteria as $item)
-                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                            @endforeach
-                                        </select>
+                            <div id="subcriteria-container">
+                                <div class="row subcriteria-item">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Kriteria</label>
+                                            <select name="criteria_id[]" class="form-control" required>
+                                                <option value="">-- Pilih Kriteria --</option>
+                                                @foreach($criteria as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Sub Kriteria</label>
+                                            <input type="text" class="form-control" name="sub_criteria[]" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Bobot</label>
+                                            <input type="text" class="form-control" name="bobot[]" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 d-flex align-items-end">
+                                        <button type="button" class="btn btn-success add-subcriteria">+</button>
                                     </div>
                                 </div>
-                                <div class="col-md-12 ">
-                                    <div class="form-group">
-                                        <label>Sub Criteria</label>
-                                        <input type="text" class="form-control" name="sub_criteria" required>
-                                    </div>
+                            </div>
+                            <br>
+                            <h4 class="text-bold">Tabel Perbandingan Sub Kriteria</h4>
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-center" id="comparison-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Sub Kriteria</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row button-hitung">
+                                <div class="col-12">
+                                    <button type="button" id="calculate" class="button-save">Hitung Nilai
+                                        Prioritas</button>
                                 </div>
-                                <div class="col-md-12 ">
-                                    <div class="form-group">
-                                        <label>Bobot</label>
-                                        <input type="text" class="form-control" name="bobot" required>
-                                    </div>
+                            </div>
+                            <div id="priority-values" class="mt-3"></div>
+                            <div class="row button-hitung">
+                                <div class="col-12">
+                                    <button type="submit" id="save-db" class="button-save"
+                                        style="display:none;">Simpan</button>
                                 </div>
-                                <div class="col-md-12 ">
-                                    <div class="form-group">
-                                        <label>Nilai Prioritas</label>
-                                        <input type="number" class="form-control" name="nilai_prioritas" step="0.000001"
-                                            required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="button-save pull-right">Simpan</button>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            </d iv>
         </div>
     </div>
+</div>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    function updateButtons() {
+        let subcriteriaItems = document.querySelectorAll(".subcriteria-item");
+        subcriteriaItems.forEach((item, index) => {
+            let addButton = item.querySelector(".add-subcriteria");
+            let removeButton = item.querySelector(".remove-subcriteria");
 
-    @endsection
+            if (!removeButton) {
+                removeButton = document.createElement("button");
+                removeButton.type = "button";
+                removeButton.className = "btn btn-danger remove-subcriteria";
+                removeButton.textContent = "-";
+                item.querySelector(".col-md-1").appendChild(removeButton);
+            }
+
+            addButton.style.display = (index === 0) ? "inline-block" : "none";
+            removeButton.style.display = (index > 0) ? "inline-block" : "none";
+        });
+    }
+
+    document.querySelector("#subcriteria-container").addEventListener("click", function(event) {
+        if (event.target.classList.contains("add-subcriteria")) {
+            let newSubcriteria = document.querySelector(".subcriteria-item").cloneNode(true);
+            newSubcriteria.querySelector("input[name='sub_criteria[]']").value = "";
+            newSubcriteria.querySelector("input[name='bobot[]']").value = "";
+            document.querySelector("#subcriteria-container").appendChild(newSubcriteria);
+            updateComparisonTable();
+            updateButtons();
+        } else if (event.target.classList.contains("remove-subcriteria")) {
+            event.target.closest(".subcriteria-item").remove();
+            updateComparisonTable();
+            updateButtons();
+        }
+    });
+
+    function updateComparisonTable() {
+        let subcriteriaNames = Array.from(document.querySelectorAll("input[name='sub_criteria[]']"))
+            .map(input => input.value.trim()).filter(name => name !== "");
+        let table = document.querySelector("#comparison-table");
+        let thead = table.querySelector("thead");
+        let tbody = table.querySelector("tbody");
+        thead.innerHTML = "";
+        tbody.innerHTML = "";
+
+        let headerRow = document.createElement("tr");
+        headerRow.innerHTML = "<th>Sub Kriteria</th>" + subcriteriaNames.map(name => `<th>${name}</th>`).join(
+            "");
+        thead.appendChild(headerRow);
+
+        subcriteriaNames.forEach((name, rowIndex) => {
+            let row = document.createElement("tr");
+            let rowContent = `<td><strong>${name}</strong></td>`;
+            subcriteriaNames.forEach((_, colIndex) => {
+                rowContent +=
+                    `<td><input type="number" class="form-control text-center comparison-input" step="0.000000001" required value="${rowIndex === colIndex ? 1 : ''}"></td>`;
+            });
+            row.innerHTML = rowContent;
+            tbody.appendChild(row);
+        });
+    }
+
+    document.querySelector("#calculate").addEventListener("click", function() {
+        let rows = document.querySelectorAll("#comparison-table tbody tr");
+        let numSubCriteria = rows.length;
+        let totals = Array(numSubCriteria).fill(0);
+        let matrix = [];
+
+        rows.forEach((row, rowIndex) => {
+            let values = Array.from(row.querySelectorAll(".comparison-input")).map(input =>
+                parseFloat(input.value) || 0);
+            totals[rowIndex] = values.reduce((sum, val) => sum + val, 0);
+            matrix.push(values);
+        });
+
+        let normalizedMatrix = matrix.map((row, rowIndex) => row.map(value => value / totals[
+        rowIndex]));
+        let columnSums = Array(numSubCriteria).fill(0);
+        normalizedMatrix.forEach(row => row.forEach((value, colIndex) => columnSums[colIndex] +=
+        value));
+        let priorities = columnSums.map(sum => sum / numSubCriteria);
+
+        let priorityHTML = "<h4><b>Nilai Prioritas</b></h4>";
+        priorities.forEach((value, index) => {
+            priorityHTML +=
+                `<div class="form-group"><label>Sub Kriteria ${index + 1}</label><input type="text" class="form-control" value="${value.toFixed(9)}" readonly></div>`;
+        });
+        document.querySelector("#priority-values").innerHTML = priorityHTML;
+        document.querySelector("#save-db").style.display = "block";
+    });
+
+    document.querySelector("#subcriteria-container").addEventListener("input", updateComparisonTable);
+    updateButtons();
+});
+</script>
+@endsection
