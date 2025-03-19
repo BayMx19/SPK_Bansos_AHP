@@ -123,7 +123,7 @@
                                             </option>
                                             <option value="Sewa"
                                                 {{ $warga->kepemilikan_rumah == 'Sewa' ? 'selected' : '' }}>
-                                                Sewa
+                                                Sewa / Kontrak
                                             </option>
                                             <option value="Milik Sendiri"
                                                 {{ $warga->kepemilikan_rumah == 'Milik Sendiri' ? 'selected' : '' }}>

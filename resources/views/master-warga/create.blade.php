@@ -111,7 +111,7 @@
                                                 Menumpang
                                             </option>
                                             <option value="Sewa">
-                                                Sewa
+                                                Sewa / Kontrak
                                             </option>
                                             <option value="Milik Sendiri">
                                                 Milik Sendiri

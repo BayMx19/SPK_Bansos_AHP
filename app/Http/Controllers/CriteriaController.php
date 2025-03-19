@@ -35,13 +35,13 @@ class CriteriaController extends Controller
             $criteriaData[] = [
                 'kode_criteria' => $kode_criteria[$i],
                 'nama' => $nama_criteria[$i],
-                'nilai_prioritas' => number_format($nilai_prioritas[$i], 6, '.', ''),
+                'nilai_prioritas' => sprintf("%.3f", $nilai_prioritas[$i]),
             ];
         }
 
         try{
             DB::table('criteria')->upsert($criteriaData, ['kode_criteria'], ['nama', 'nilai_prioritas']);
-            
+
             $criteriaIds = DB::table('criteria')->whereIn('kode_criteria', $kode_criteria)->pluck('id');
 
             foreach ($criteriaIds as $index => $criteriaId) {
@@ -54,7 +54,7 @@ class CriteriaController extends Controller
                     ]
                 );
             }
-            
+
             // Redirect kembali dengan pesan sukses
             return redirect('/master-criteria')->with('success', 'Criteria berhasil ditambahkan.');
         } catch (QueryException $e) {

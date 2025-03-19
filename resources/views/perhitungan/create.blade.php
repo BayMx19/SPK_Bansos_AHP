@@ -199,8 +199,8 @@ $(document).ready(function() {
                 url: '/get-warga/' + wargaId,
                 type: 'GET',
                 dataType: 'json',
+                cache: false,
                 success: function(data) {
-                    $('#alamat').val(data.alamat);
                     $('#NIK').val(data.NIK);
                     $('#kelurahan').val(data.kelurahan);
                     $('#kecamatan').val(data.kecamatan);

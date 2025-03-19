@@ -52,7 +52,7 @@ class PerhitunganController extends Controller
     }
 
     public function hitung_data(Request $request){
-
+        // Log::info("Data masuk ke hitung_data: ", $request->all());
         $usia_criteria = CriteriaModel::where('id', 1)->pluck('nilai_prioritas')->first();
         $kerja_criteria = CriteriaModel::where('id', 2)->pluck('nilai_prioritas')->first();
         $pendapatan_criteria = CriteriaModel::where('id', 3)->pluck('nilai_prioritas')->first();
@@ -100,12 +100,18 @@ class PerhitunganController extends Controller
         switch ($tipe) {
             case 'usia':
                 $criteria_id = 1;
-                if ($nilai < 30) {
-                    $id = 3;
-                } elseif ($nilai <= 50) {
-                    $id = 2;
+                if ($nilai > 50) {
+                    $id = SubCriteriaModel::where('criteria_id', $criteria_id)
+                                          ->where('sub_criteria', '>50 tahun')
+                                          ->value('id');
+                } elseif ($nilai >= 30 && $nilai <= 50) {
+                    $id = SubCriteriaModel::where('criteria_id', $criteria_id)
+                                          ->where('sub_criteria', '30-50 tahun')
+                                          ->value('id');
                 } else {
-                    $id = 1;
+                    $id = SubCriteriaModel::where('criteria_id', $criteria_id)
+                                          ->where('sub_criteria', '<30 tahun')
+                                          ->value('id');
                 }
                 break;
 
