@@ -46,10 +46,11 @@ class CriteriaController extends Controller
 
             foreach ($criteriaIds as $index => $criteriaId) {
                 DB::table('analisa')->updateOrInsert(
-                    ['criteria_id' => $criteriaId], // Kondisi pencarian berdasarkan criteria_id
+                    ['criteria_id' => $criteriaId],
                     [
                         'data' => json_encode($nilai_perbandingan[$index]),
                         'tipe' => 'Kriteria',
+                        'subcriteria_id' => null,
                     ]
                 );
             }

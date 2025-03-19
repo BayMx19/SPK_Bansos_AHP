@@ -73,11 +73,12 @@ Route::middleware(['auth', 'checkrole:Staff Kelurahan'])->group(function () {
     Route::get('/master-subcriteria', [SubCriteriaController::class, 'index'])->name('master-subcriteria');
     Route::get('/master-subcriteria/create', [SubCriteriaController::class, 'create']);
     Route::post('/master-subcriteria/store', [SubCriteriaController::class, 'store'])->name('subcriteria.store');
-    Route::get('/master-subcriteria/detail', [SubCriteriaController::class, 'detail'])->name('subcriteria.detail');
-
-    Route::get('/master-subcriteria/{id}/edit', [SubCriteriaController::class, 'edit'])->name('subcriteria.edit');
-    Route::put('/master-subcriteria/{id}', [SubCriteriaController::class, 'update'])->name('subcriteria.update');
+    Route::get('/master-subcriteria/detail/{id}', [SubCriteriaController::class, 'detail'])->name('subcriteria.detail');
+    Route::post('/master-subcriteria/update', [SubCriteriaController::class, 'update'])->name('subcriteria.update');
     Route::delete('/master-subcriteria/{id}', [SubCriteriaController::class, 'destroy'])->name('subcriteria.destroy');
+
+    // Route::get('/master-subcriteria/{id}/edit', [SubCriteriaController::class, 'edit'])->name('subcriteria.edit');
+    
 
     #Rute Perhitungan
     Route::get('/perhitungan', [PerhitunganController::class,'index'])->name('perhitungan');

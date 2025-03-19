@@ -104,9 +104,13 @@
                     <div class="row modal-footer">
                         <div class="row button-hitung">
                             <div class="col-12 ">
-                                <a href="/master-subcriteria/detail"><button type="button"
-                                        class="button-detail">Lihat</button></a>
+                                <a id="detail-link" href="#" class="disabled">
+                                    <button type="button" class="button-detail" disabled>Lihat</button>
+                                </a>
                             </div>
+                        </div>
+                        <div id="error-message" style="display:none; color:red; text-align:center;">
+                            <strong>Mohon untuk memilih kriteria terlebih dahulu..</strong>
                         </div>
                     </div>
                 </div>
@@ -114,4 +118,41 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const criteriaSelect = document.getElementById('criteriaSelect');
+        const detailLink = document.getElementById('detail-link');
+        const buttonDetail = detailLink.querySelector('button');
+        const errorMessage = document.getElementById('error-message');
+        
+        criteriaSelect.addEventListener('change', function() {
+            const selectedId = criteriaSelect.value;
+            
+            if (selectedId) {
+                detailLink.href = '/master-subcriteria/detail/' + selectedId;
+                buttonDetail.disabled = false;
+                detailLink.classList.remove('disabled');
+                errorMessage.style.display = 'none';
+            } else {
+                detailLink.href = '#';
+                buttonDetail.disabled = true;
+                detailLink.classList.add('disabled');
+                errorMessage.style.display = 'block';
+            }
+        });
+
+        buttonDetail.addEventListener('click', function(event) {
+            const selectedId = criteriaSelect.value;
+            if (!selectedId) {
+                event.preventDefault();
+                errorMessage.style.display = 'block';
+            }
+        });
+
+        if (!criteriaSelect.value) {
+            errorMessage.style.display = 'block';
+        }
+    });
+</script>
 @endsection

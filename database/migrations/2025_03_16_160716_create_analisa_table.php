@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->json('data')->nullable();
             $table->string('tipe')->nullable();
-            $table->foreignId('criteria_id')->constrained('criteria')->onDelete('cascade');
+            $table->integer('criteria_id')->nullable();
+            $table->integer('subcriteria_id')->nullable();
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@
                                             <label>Kriteria</label>
                                             <select name="criteria_id[]" class="form-control" required>
                                                 <option value="">-- Pilih Kriteria --</option>
-                                                @foreach($criteria as $item)
+                                                @foreach($criteria_select as $item)
                                                 <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                                 @endforeach
                                             </select>
@@ -115,28 +115,58 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateComparisonTable() {
         let subcriteriaNames = Array.from(document.querySelectorAll("input[name='sub_criteria[]']"))
             .map(input => input.value.trim()).filter(name => name !== "");
+
         let table = document.querySelector("#comparison-table");
         let thead = table.querySelector("thead");
         let tbody = table.querySelector("tbody");
+
         thead.innerHTML = "";
         tbody.innerHTML = "";
 
         let headerRow = document.createElement("tr");
-        headerRow.innerHTML = "<th>Sub Kriteria</th>" + subcriteriaNames.map(name => `<th>${name}</th>`).join(
-            "");
+
+        let headerSubcriteria = document.createElement("th");
+        headerSubcriteria.textContent = "Sub Kriteria";
+        headerRow.appendChild(headerSubcriteria);
+
+        subcriteriaNames.forEach(name => {
+            let th = document.createElement("th");
+            th.textContent = name;
+            headerRow.appendChild(th);
+        });
+
         thead.appendChild(headerRow);
 
         subcriteriaNames.forEach((name, rowIndex) => {
             let row = document.createElement("tr");
-            let rowContent = `<td><strong>${name}</strong></td>`;
+
+            let nameCell = document.createElement("td");
+            let strongElement = document.createElement("strong");
+            strongElement.textContent = name;
+            nameCell.appendChild(strongElement);
+            row.appendChild(nameCell);
+
             subcriteriaNames.forEach((_, colIndex) => {
-                rowContent +=
-                    `<td><input type="number" class="form-control text-center comparison-input" step="0.000000001" required value="${rowIndex === colIndex ? 1 : ''}"></td>`;
+                let cell = document.createElement("td");
+                let input = document.createElement("input");
+                input.type = "number";
+                input.className = "form-control text-center comparison-input";
+                input.step = "0.000000001";
+                input.required = true;
+
+                input.value = (rowIndex === colIndex) ? 1 : '';
+
+                input.name = `nilai_perbandingan[${rowIndex}][${colIndex}]`;
+
+                cell.appendChild(input);
+                row.appendChild(cell);
             });
-            row.innerHTML = rowContent;
+
+            // Menambahkan baris ke tbody
             tbody.appendChild(row);
         });
     }
+
 
     document.querySelector("#calculate").addEventListener("click", function() {
         let rows = document.querySelectorAll("#comparison-table tbody tr");
@@ -176,13 +206,24 @@ document.addEventListener("DOMContentLoaded", function() {
         // Menghitung nilai prioritas
         let priorities = rowSums.map(value => value / totalSum);
 
-        // Menampilkan hasil
+        // Menemukan nilai prioritas tertinggi
+        let maxPriority = Math.max(...priorities);
+
+        // Membagi setiap nilai prioritas dengan nilai tertinggi
+        let normalizedPriorities = priorities.map(priority => priority / maxPriority);
+
+        // Menampilkan hasil ke dalam input form
         let priorityHTML = "<h4><b>Nilai Prioritas</b></h4>";
-        priorities.forEach((value, index) => {
+        normalizedPriorities.forEach((value, index) => {
             priorityHTML +=
-                `<div class="form-group"><label>Sub Kriteria ${index + 1}</label><input type="text" class="form-control" value="${value.toFixed(9)}" readonly></div>`;
+                `<div class="form-group">
+                    <label>Sub Kriteria ${index + 1}</label>
+                    <input type="text" name="nilai_prioritas[]" class="form-control" value="${value.toFixed(9)}" readonly>
+                </div>`;
         });
         document.querySelector("#priority-values").innerHTML = priorityHTML;
+
+        // Menyembunyikan tombol simpan jika belum ada data prioritas
         document.querySelector("#save-db").style.display = "block";
     });
 

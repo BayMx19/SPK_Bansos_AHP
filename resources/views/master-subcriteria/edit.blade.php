@@ -10,9 +10,45 @@
                         <h4 class="card-title text-bold">Detail Sub Kriteria</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('subcriteria.store') }}" method="POST">
+                        <form action="{{ route('subcriteria.update') }}" method="POST">
                             @csrf
                             <div id="subcriteria-container">
+                                @foreach($subcriteria as $item)
+                                <input type="hidden" name="subcriteria_id[]" value="{{ $item->id }}">
+                                <div class="row subcriteria-item">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Kriteria</label>
+                                            <select name="criteria_id[]" class="form-control" required disabled>
+                                                <option value="">-- Pilih Kriteria --</option>
+                                                @foreach($criteria as $criteriaItem)
+                                                    <option value="{{ $criteriaItem->id }}" 
+                                                        @if($item->criteria_id == $criteriaItem->id) selected="selected" @endif>
+                                                        {{ $criteriaItem->nama }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Nama Sub Kriteria</label>
+                                            <input type="text" class="form-control" name="sub_criteria[]" required value="{{ old('sub_criteria[]', $item->sub_criteria) }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Bobot</label>
+                                            <input type="text" class="form-control" name="bobot[]" required value="{{ old('bobot[]', $item->bobot) }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 d-flex align-items-end">
+                                        <button type="button" class="btn btn-success add-subcriteria">+</button>
+                                    </div>
+                                </div>
+                                @endforeach
+
+                                @if($subcriteria->isEmpty())
                                 <div class="row subcriteria-item">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -41,6 +77,7 @@
                                         <button type="button" class="btn btn-success add-subcriteria">+</button>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                             <br>
                             <h4 class="text-bold">Tabel Perbandingan Sub Kriteria</h4>
@@ -75,6 +112,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    let comparisonData = @json($analisa);
+    console.log(comparisonData);
+</script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -122,72 +164,106 @@ document.addEventListener("DOMContentLoaded", function() {
         tbody.innerHTML = "";
 
         let headerRow = document.createElement("tr");
-        headerRow.innerHTML = "<th>Sub Kriteria</th>" + subcriteriaNames.map(name => `<th>${name}</th>`).join(
-            "");
+        headerRow.innerHTML = "<th>Sub Kriteria</th>" + subcriteriaNames.map(name => {
+            let th = document.createElement("th");
+            th.textContent = name;
+            return th.outerHTML;
+        }).join("");
         thead.appendChild(headerRow);
 
         subcriteriaNames.forEach((name, rowIndex) => {
             let row = document.createElement("tr");
-            let rowContent = `<td><strong>${name}</strong></td>`;
+       
+            let nameCell = document.createElement("td");
+            let strongElement = document.createElement("strong");
+            strongElement.textContent = name;
+            nameCell.appendChild(strongElement);
+            row.appendChild(nameCell);
+
             subcriteriaNames.forEach((_, colIndex) => {
-                rowContent +=
-                    `<td><input type="number" class="form-control text-center comparison-input" step="0.000000001" required value="${rowIndex === colIndex ? 1 : ''}"></td>`;
+                let cell = document.createElement("td");
+                let input = document.createElement("input");
+                input.type = "number";
+                input.className = "form-control text-center comparison-input";
+                input.step = "0.000000001";
+                input.required = true;
+                input.value = (rowIndex === colIndex) ? 1 : (comparisonData[rowIndex] && comparisonData[rowIndex][colIndex] ? comparisonData[rowIndex][colIndex] : '');
+                input.name = `nilai_perbandingan[${rowIndex}][${colIndex}]`;
+
+
+                cell.appendChild(input);
+                row.appendChild(cell);
             });
-            row.innerHTML = rowContent;
+
             tbody.appendChild(row);
         });
+
     }
 
     document.querySelector("#calculate").addEventListener("click", function() {
-        let rows = document.querySelectorAll("#comparison-table tbody tr");
-        let numSubCriteria = rows.length;
-        let matrix = [];
-        let columnTotals = Array(numSubCriteria).fill(0);
+    let rows = document.querySelectorAll("#comparison-table tbody tr");
+    let numSubCriteria = rows.length;
+    let matrix = [];
+    let columnTotals = Array(numSubCriteria).fill(0);
 
-        // Membaca nilai dari input dan membentuk matriks perbandingan
-        rows.forEach((row, rowIndex) => {
-            let values = Array.from(row.querySelectorAll(".comparison-input")).map(input =>
-                parseFloat(input.value) || 0);
-            matrix.push(values);
-        });
-
-        // Menghitung total per kolom
-        for (let col = 0; col < numSubCriteria; col++) {
-            for (let row = 0; row < numSubCriteria; row++) {
-                columnTotals[col] += matrix[row][col];
-            }
-        }
-
-        // Normalisasi matriks
-        let normalizedMatrix = [];
-        let rowSums = Array(numSubCriteria).fill(0);
-        for (let row = 0; row < numSubCriteria; row++) {
-            normalizedMatrix[row] = [];
-            for (let col = 0; col < numSubCriteria; col++) {
-                let normalizedValue = matrix[row][col] / columnTotals[col];
-                normalizedMatrix[row][col] = normalizedValue;
-                rowSums[row] += normalizedValue;
-            }
-        }
-
-        // Menghitung total keseluruhan jumlah sub kriteria
-        let totalSum = rowSums.reduce((sum, value) => sum + value, 0);
-
-        // Menghitung nilai prioritas
-        let priorities = rowSums.map(value => value / totalSum);
-
-        // Menampilkan hasil
-        let priorityHTML = "<h4><b>Nilai Prioritas</b></h4>";
-        priorities.forEach((value, index) => {
-            priorityHTML +=
-                `<div class="form-group"><label>Sub Kriteria ${index + 1}</label><input type="text" class="form-control" value="${value.toFixed(9)}" readonly></div>`;
-        });
-        document.querySelector("#priority-values").innerHTML = priorityHTML;
-        document.querySelector("#save-db").style.display = "block";
+    // Membaca nilai dari input dan membentuk matriks perbandingan
+    rows.forEach((row, rowIndex) => {
+        let values = Array.from(row.querySelectorAll(".comparison-input")).map(input =>
+            parseFloat(input.value) || 0);
+        matrix.push(values);
     });
+
+    // Menghitung total per kolom
+    for (let col = 0; col < numSubCriteria; col++) {
+        for (let row = 0; row < numSubCriteria; row++) {
+            columnTotals[col] += matrix[row][col];
+        }
+    }
+
+    // Normalisasi matriks
+    let normalizedMatrix = [];
+    let rowSums = Array(numSubCriteria).fill(0);
+    for (let row = 0; row < numSubCriteria; row++) {
+        normalizedMatrix[row] = [];
+        for (let col = 0; col < numSubCriteria; col++) {
+            let normalizedValue = matrix[row][col] / columnTotals[col];
+            normalizedMatrix[row][col] = normalizedValue;
+            rowSums[row] += normalizedValue;
+        }
+    }
+
+    // Menghitung total keseluruhan jumlah sub kriteria
+    let totalSum = rowSums.reduce((sum, value) => sum + value, 0);
+
+    // Menghitung nilai prioritas
+    let priorities = rowSums.map(value => value / totalSum);
+
+    // Menemukan nilai prioritas tertinggi
+    let maxPriority = Math.max(...priorities);
+
+    // Membagi setiap nilai prioritas dengan nilai tertinggi
+    let normalizedPriorities = priorities.map(priority => priority / maxPriority);
+
+    // Menampilkan hasil ke dalam input form
+    let priorityHTML = "<h4><b>Nilai Prioritas</b></h4>";
+    normalizedPriorities.forEach((value, index) => {
+        priorityHTML +=
+            `<div class="form-group">
+                <label>Sub Kriteria ${index + 1}</label>
+                <input type="text" name="nilai_prioritas[]" class="form-control" value="${value.toFixed(9)}" readonly>
+            </div>`;
+    });
+    document.querySelector("#priority-values").innerHTML = priorityHTML;
+
+    // Menyembunyikan tombol simpan jika belum ada data prioritas
+    document.querySelector("#save-db").style.display = "block";
+});
+
 
     document.querySelector("#subcriteria-container").addEventListener("input", updateComparisonTable);
     updateButtons();
+
+    updateComparisonTable();
 });
 </script>
 
