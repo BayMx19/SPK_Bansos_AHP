@@ -40,7 +40,7 @@ class SubCriteriaController extends Controller
                 'criteria_id' => $criteria_id[$i],
                 'sub_criteria' => $subcriteria[$i],
                 'bobot' => $bobot[$i],
-                'nilai_prioritas' => number_format($nilai_prioritas[$i], 6, '.', ''),
+                'nilai_prioritas' => number_format($nilai_prioritas[$i], 9, '.', ''),
             ];
         }
 
@@ -97,7 +97,7 @@ class SubCriteriaController extends Controller
                 'criteria_id' => $criteria_id[$i],
                 'sub_criteria' => $subcriteria[$i],
                 'bobot' => $bobot[$i],
-                'nilai_prioritas' => number_format($nilai_prioritas[$i], 6, '.', ''),
+                'nilai_prioritas' => number_format($nilai_prioritas[$i], 9, '.', ''),
             ];
         }
 

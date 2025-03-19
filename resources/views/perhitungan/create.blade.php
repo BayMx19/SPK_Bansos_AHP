@@ -202,6 +202,7 @@ $(document).ready(function() {
                 cache: false,
                 success: function(data) {
                     $('#NIK').val(data.NIK);
+                    $('#alamat').val(data.alamat);
                     $('#kelurahan').val(data.kelurahan);
                     $('#kecamatan').val(data.kecamatan);
                     $('#RT').val(data.RT);

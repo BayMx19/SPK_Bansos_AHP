@@ -28,6 +28,7 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                            <input type="hidden" name="criteria_id[]" value="{{ $item->criteria_id }}">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -236,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let totalSum = rowSums.reduce((sum, value) => sum + value, 0);
 
     // Menghitung nilai prioritas
-    let priorities = rowSums.map(value => value / totalSum);
+    let priorities = rowSums.map(value => (value / totalSum).toFixed(6));
 
     // Menemukan nilai prioritas tertinggi
     let maxPriority = Math.max(...priorities);
