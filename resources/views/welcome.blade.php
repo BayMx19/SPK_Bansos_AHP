@@ -102,17 +102,17 @@
                     <ul class="splide__list">
                         <!-- Slide 1 -->
                         <li class="splide__slide">
-                            <img src="{{ asset('/image/bansos/image-1.jpeg') }}" alt="Program 1"
+                            <img src="{{ asset('/image/bansos/IMG_2893.JPG') }}" style="height: 550px" alt="Program 1"
                                 class="w-full rounded-lg shadow-md">
                         </li>
                         <!-- Slide 2 -->
                         <li class="splide__slide">
-                            <img src="{{ asset('/image/bansos/image-2.jpg') }}" alt="Program 2"
+                            <img src="{{ asset('/image/bansos/IMG_2894.JPG') }}" style="height: 550px" alt="Program 2"
                                 class="w-full rounded-lg shadow-md">
                         </li>
                         <!-- Slide 3 -->
                         <li class="splide__slide">
-                            <img src="{{ asset('/image/bansos/image-3.jpg') }}" alt="Program 3"
+                            <img src="{{ asset('/image/bansos/IMG_2896.JPG') }}" style="height: 550px" alt="Program 3"
                                 class="w-full rounded-lg shadow-md">
                         </li>
                     </ul>

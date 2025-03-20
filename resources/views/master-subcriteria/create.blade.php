@@ -188,6 +188,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
+
         // Normalisasi matriks
         let normalizedMatrix = [];
         let rowSums = Array(numSubCriteria).fill(0);
@@ -195,37 +196,45 @@ document.addEventListener("DOMContentLoaded", function() {
             normalizedMatrix[row] = [];
             for (let col = 0; col < numSubCriteria; col++) {
                 let normalizedValue = matrix[row][col] / columnTotals[col];
+                normalizedValue = normalizedValue;
                 normalizedMatrix[row][col] = normalizedValue;
                 rowSums[row] += normalizedValue;
             }
         }
 
+        // Membatasi total row sums ke 9 digit
+        rowSums = rowSums.map(value => parseFloat(value.toFixed(9)));
+
         // Menghitung total keseluruhan jumlah sub kriteria
         let totalSum = rowSums.reduce((sum, value) => sum + value, 0);
+        totalSum = parseFloat(totalSum.toFixed(9));
 
         // Menghitung nilai prioritas
-        let priorities = rowSums.map(value => (value / totalSum).toFixed(6));
+        let priorities = rowSums.map(value => parseFloat((value / totalSum).toFixed(9)));
 
         // Menemukan nilai prioritas tertinggi
         let maxPriority = Math.max(...priorities);
 
         // Membagi setiap nilai prioritas dengan nilai tertinggi
-        let normalizedPriorities = priorities.map(priority => priority / maxPriority);
+        let normalizedPriorities = priorities.map(priority =>
+            parseFloat((priority / maxPriority).toFixed(9))
+        );
 
         // Menampilkan hasil ke dalam input form
         let priorityHTML = "<h4><b>Nilai Prioritas</b></h4>";
         normalizedPriorities.forEach((value, index) => {
             priorityHTML +=
                 `<div class="form-group">
-                    <label>Sub Kriteria ${index + 1}</label>
-                    <input type="text" name="nilai_prioritas[]" class="form-control" value="${value.toFixed(9)}" readonly>
-                </div>`;
+                <label>Sub Kriteria ${index + 1}</label>
+                <input type="text" name="nilai_prioritas[]" class="form-control" value="${value}" readonly>
+            </div>`;
         });
         document.querySelector("#priority-values").innerHTML = priorityHTML;
 
         // Menyembunyikan tombol simpan jika belum ada data prioritas
         document.querySelector("#save-db").style.display = "block";
     });
+
 
     document.querySelector("#subcriteria-container").addEventListener("input", updateComparisonTable);
     updateButtons();
