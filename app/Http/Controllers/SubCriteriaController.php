@@ -102,6 +102,7 @@ class SubCriteriaController extends Controller
         }
 
         try{
+
             foreach ($subcriteriaData as $data) {
                 DB::table('subcriteria')
                     ->where('id', $data['id'])

@@ -62,6 +62,7 @@
                                 </div>
                             </div>
                             <div id="priority-values" class="mt-3"></div>
+                            <div id="consistency-result" class="mt-3"></div>
                             <div class="row button-hitung">
                                 <div class="col-12">
                                     <button type="submit" id="save-db" class="button-save"
@@ -174,21 +175,18 @@ document.addEventListener("DOMContentLoaded", function() {
         let matrix = [];
         let columnTotals = Array(numSubCriteria).fill(0);
 
-        // Membaca nilai dari input dan membentuk matriks perbandingan
         rows.forEach((row, rowIndex) => {
             let values = Array.from(row.querySelectorAll(".comparison-input")).map(input =>
                 parseFloat(input.value) || 0);
             matrix.push(values);
         });
 
-        // Menghitung total per kolom
         for (let col = 0; col < numSubCriteria; col++) {
             for (let row = 0; row < numSubCriteria; row++) {
                 columnTotals[col] += matrix[row][col];
             }
         }
 
-        // Normalisasi matriks
         let normalizedMatrix = [];
         let rowSums = Array(numSubCriteria).fill(0);
         for (let row = 0; row < numSubCriteria; row++) {
@@ -200,18 +198,44 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        // Menghitung total keseluruhan jumlah sub kriteria
         let totalSum = rowSums.reduce((sum, value) => sum + value, 0);
+        totalSum = parseFloat(totalSum.toFixed(9));
 
-        // Menghitung nilai prioritas
         let priorities = rowSums.map(value => (value / totalSum).toFixed(6));
 
-        // Menemukan nilai prioritas tertinggi
         let maxPriority = Math.max(...priorities);
 
         // Membagi setiap nilai prioritas dengan nilai tertinggi
-        let normalizedPriorities = priorities.map(priority => priority / maxPriority);
+        let normalizedPriorities = priorities.map(priority =>
+            parseFloat((priority / maxPriority).toFixed(9))
+        );
+        let rowMultiplications = Array(numSubCriteria).fill(0);
+        for (let row = 0; row < numSubCriteria; row++) {
+            for (let col = 0; col < numSubCriteria; col++) {
+                rowMultiplications[row] += priorities[col] * matrix[row][col];
+            }
+        }
 
+
+
+
+        let eigenValues = rowMultiplications.map((value, index) =>
+            value + parseFloat(priorities[index])
+        );
+
+        let totalEigen = eigenValues.reduce((sum, value) => sum + value, 0);
+
+        let lambdaMax = totalEigen / numSubCriteria;
+
+
+        let CI = (lambdaMax - numSubCriteria) / (numSubCriteria - 1);
+
+        let RI_VALUES = [0, 0, 0.58, 0.9, 1.12, 1.24, 1.32, 1.41, 1.45,
+            1.49
+        ];
+        let RI = RI_VALUES[numSubCriteria - 1];
+
+        let CR = CI / RI;
         // Menampilkan hasil ke dalam input form
         let priorityHTML = "<h4><b>Nilai Prioritas</b></h4>";
         normalizedPriorities.forEach((value, index) => {
@@ -222,7 +246,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>`;
         });
         document.querySelector("#priority-values").innerHTML = priorityHTML;
+        let resultHTML = `<h4><b>Validasi Konsistensi</b></h4>
+                            <div class="form-group">
+                            <label>Lambda Max (λmaks):</label><input type="text" name="lambda_max" class="form-control" value=" ${lambdaMax.toFixed(9)}" readonly>
+                            <label>Consistency Index (CI):</label><input type="text" name="CI" class="form-control" value=" ${CI.toFixed(9)}" readonly>
+                            <label>Consistency Ratio (CR):</label><input type="text" name="CR" class="form-control" value=" ${CR.toFixed(9)}" readonly>
+                            </div>`;
+        if (CR > 0.1) {
+            resultHTML += `<p style="color:red;"><b>CR > 0.1, hasil TIDAK konsisten!</b></p>`;
+        } else {
+            resultHTML += `<p style="color:green;"><b>CR < 0.1, hasil KONSISTEN.</b></p>`;
+        }
 
+        document.querySelector("#consistency-result").innerHTML = resultHTML;
         // Menyembunyikan tombol simpan jika belum ada data prioritas
         document.querySelector("#save-db").style.display = "block";
     });
