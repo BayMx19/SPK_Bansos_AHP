@@ -18,13 +18,15 @@
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label>Kode Kriteria</label>
-                                            <input type="text" class="form-control" name="kode_criteria[]" value="{{ old('kode_criteria[]', $item->kode_criteria) }}" required>
+                                            <input type="text" class="form-control" name="kode_criteria[]"
+                                                value="{{ old('kode_criteria[]', $item->kode_criteria) }}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label>Nama Kriteria</label>
-                                            <input type="text" class="form-control" name="nama_criteria[]" value="{{ old('nama_criteria[]', $item->nama) }}" required>
+                                            <input type="text" class="form-control" name="nama_criteria[]"
+                                                value="{{ old('nama_criteria[]', $item->nama) }}" required>
                                         </div>
                                     </div>
                                     <div class="col-md-2 d-flex align-items-end">
@@ -74,6 +76,8 @@
                             </div>
 
                             <div id="priority-values" class="mt-3"></div>
+                            <div id="consistency-result" class="mt-3"></div>
+
                             <div class="row button-hitung">
                                 <div class="col-12 ">
                                     <button type="submit" id="save-db" class="button-save"
@@ -91,8 +95,8 @@
 </div>
 
 <script>
-    let comparisonData = @json($analisa);
-    console.log(comparisonData);
+let comparisonData = @json($analisa);
+console.log(comparisonData);
 </script>
 
 
@@ -150,7 +154,10 @@ document.addEventListener("DOMContentLoaded", function() {
             let rowContent = `<td><strong>${name}</strong></td>`;
 
             criteriaNames.forEach((_, colIndex) => {
-                let value = (rowIndex === colIndex) ? 1 : (comparisonData[rowIndex] && comparisonData[rowIndex][colIndex] ? comparisonData[rowIndex][colIndex] : '');
+                let value = (rowIndex === colIndex) ? 1 : (comparisonData[rowIndex] &&
+                    comparisonData[rowIndex][colIndex] ? comparisonData[rowIndex][
+                        colIndex
+                    ] : '');
 
                 rowContent +=
                     `<td><input type="number" name="nilai_perbandingan[${rowIndex}][${colIndex}]" class="form-control text-center comparison-input" step="0.000000001" required value="${value}"></td>`;
@@ -185,6 +192,24 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         let priorities = columnSums.map(sum => sum / numCriteria);
+        let rowPriorities = matrix.map((row, rowIndex) => {
+            return row.map((value, colIndex) => priorities[colIndex] / value);
+        });
+        let transposedRowPriorities = rowPriorities[0].map((_, colIndex) =>
+            rowPriorities.map(row => row[colIndex])
+        );
+        let rowSums = transposedRowPriorities.map(row => row.reduce((sum, val) => sum + val, 0));
+        let eigenValues = rowSums.map((sum, index) => sum + priorities[index]);
+
+        let totalEigen = eigenValues.reduce((sum, val) => sum + val, 0);
+        let lambdaMax = totalEigen / numCriteria;
+
+        let CI = (lambdaMax - numCriteria) / (numCriteria - 1);
+
+        let RI_VALUES = [0, 0, 0.58, 0.9, 1.12, 1.24, 1.32, 1.41, 1.45, 1.49]; // Untuk n=1 s.d. 10
+        let RI = RI_VALUES[numCriteria - 1];
+
+        let CR = CI / RI;
 
         let priorityHTML = "<h4><b>Nilai Prioritas</b></h4>";
         priorities.forEach((value, index) => {
@@ -194,6 +219,23 @@ document.addEventListener("DOMContentLoaded", function() {
                                  </div>`;
         });
         document.querySelector("#priority-values").innerHTML = priorityHTML;
+        let resultHTML = `<h4><b>Validasi Konsistensi</b></h4>
+
+                      <div class="form-group">
+                      <label>Lambda Max (λmaks):</label><input type="text" name="lambda_max" class="form-control" value=" ${lambdaMax.toFixed(9)}" readonly>
+                      <label>Consistency Index (CI):</label><input type="text" name="CI" class="form-control" value=" ${CI.toFixed(9)}" readonly>
+                      <label>Consistency Ratio (CR):</label><input type="text" name="CR" class="form-control" value=" ${CR.toFixed(9)}" readonly>
+
+                      </div>`;
+
+        if (CR > 0.1) {
+            resultHTML += `<p style="color:red;"><b>CR > 0.1, hasil TIDAK konsisten!</b></p>`;
+        } else {
+            resultHTML += `<p style="color:green;"><b>CR < 0.1, hasil KONSISTEN.</b></p>`;
+        }
+
+        document.querySelector("#consistency-result").innerHTML = resultHTML;
+
         document.querySelector("#save-db").style.display = "block";
     });
 

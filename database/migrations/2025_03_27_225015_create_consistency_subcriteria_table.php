@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('criteria', function (Blueprint $table) {
+        Schema::create('consistency_subcriteria', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_criteria')->unique();
-            $table->string('nama');
-            $table->decimal('nilai_prioritas', 4, 3);
+            $table->json('subcriteria_ids');
+            $table->decimal('lambda_max', 10, 9);
+            $table->decimal('CI', 10, 9);
+            $table->decimal('CR', 10, 9);
             $table->timestamps();
+
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('criteria');
+        Schema::dropIfExists('consistency_subcriteria');
     }
 };

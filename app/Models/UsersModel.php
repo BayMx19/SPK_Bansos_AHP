@@ -15,6 +15,8 @@ class UsersModel extends Model
         'username',
         'role',
         'alamat',
+        'RT',
+        'RW',
         'email',
         'password',
         'status',

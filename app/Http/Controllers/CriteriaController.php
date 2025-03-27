@@ -40,6 +40,8 @@ class CriteriaController extends Controller
         }
 
         try{
+            DB::beginTransaction();
+
             DB::table('criteria')->upsert($criteriaData, ['kode_criteria'], ['nama', 'nilai_prioritas']);
 
             $criteriaIds = DB::table('criteria')->whereIn('kode_criteria', $kode_criteria)->pluck('id');
@@ -54,6 +56,19 @@ class CriteriaController extends Controller
                     ]
                 );
             }
+            $lambdaMax = $request->input('lambda_max');
+            $CI = $request->input('CI');
+            $CR = $request->input('CR');
+
+            DB::table('consistency_criteria')->insert([
+                'criteria_ids' => json_encode($criteriaIds),
+                'lambda_max' => sprintf("%.9f", $lambdaMax),
+                'CI' => sprintf("%.9f", $CI),
+                'CR' => sprintf("%.9f", $CR),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            DB::commit();
 
             // Redirect kembali dengan pesan sukses
             return redirect('/master-criteria')->with('success', 'Criteria berhasil ditambahkan.');

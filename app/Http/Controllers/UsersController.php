@@ -30,6 +30,9 @@ class UsersController extends Controller
                 'name' => $request->name,
                 'username' => $request->username,
                 'role' => $request->role,
+                'RT' => $request->RT,
+                'RW' => $request->RW,
+
                 'alamat' => $request->alamat,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
@@ -61,6 +64,8 @@ class UsersController extends Controller
             'username' => $request->username,
             'role' => $request->role,
             'alamat' => $request->alamat,
+            'RT' => $request->RT,
+            'RW' => $request->RW,
             'email' => $request->email,
             'status' => $request->status,
         ]);

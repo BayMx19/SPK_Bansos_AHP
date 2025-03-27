@@ -22,10 +22,10 @@
                                             <select name="criteria_id[]" class="form-control" required disabled>
                                                 <option value="">-- Pilih Kriteria --</option>
                                                 @foreach($criteria as $criteriaItem)
-                                                <option value="{{ $criteriaItem->id }}" @if($item->criteria_id ==
-                                                    $criteriaItem->id) selected="selected" @endif>
-                                                    {{ $criteriaItem->nama }}
-                                                </option>
+                                                    <option value="{{ $criteriaItem->id }}" 
+                                                        @if($item->criteria_id == $criteriaItem->id) selected="selected" @endif>
+                                                        {{ $criteriaItem->nama }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                             <input type="hidden" name="criteria_id[]" value="{{ $item->criteria_id }}">
@@ -34,15 +34,13 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Nama Sub Kriteria</label>
-                                            <input type="text" class="form-control" name="sub_criteria[]" required
-                                                value="{{ old('sub_criteria[]', $item->sub_criteria) }}">
+                                            <input type="text" class="form-control" name="sub_criteria[]" required value="{{ old('sub_criteria[]', $item->sub_criteria) }}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Bobot</label>
-                                            <input type="text" class="form-control" name="bobot[]" required
-                                                value="{{ old('bobot[]', $item->bobot) }}">
+                                            <input type="text" class="form-control" name="bobot[]" required value="{{ old('bobot[]', $item->bobot) }}">
                                         </div>
                                     </div>
                                     <div class="col-md-1 d-flex align-items-end">
@@ -117,8 +115,8 @@
 </div>
 
 <script>
-let comparisonData = @json($analisa);
-console.log(comparisonData);
+    let comparisonData = @json($analisa);
+    console.log(comparisonData);
 </script>
 
 <script>
@@ -176,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         subcriteriaNames.forEach((name, rowIndex) => {
             let row = document.createElement("tr");
-
+       
             let nameCell = document.createElement("td");
             let strongElement = document.createElement("strong");
             strongElement.textContent = name;
@@ -190,10 +188,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 input.className = "form-control text-center comparison-input";
                 input.step = "0.000000001";
                 input.required = true;
-                input.value = (rowIndex === colIndex) ? 1 : (comparisonData[rowIndex] &&
-                    comparisonData[rowIndex][colIndex] ? comparisonData[rowIndex][
-                        colIndex
-                    ] : '');
+                input.value = (rowIndex === colIndex) ? 1 : (comparisonData[rowIndex] && comparisonData[rowIndex][colIndex] ? comparisonData[rowIndex][colIndex] : '');
                 input.name = `nilai_perbandingan[${rowIndex}][${colIndex}]`;
 
 
@@ -207,68 +202,63 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     document.querySelector("#calculate").addEventListener("click", function() {
-        let rows = document.querySelectorAll("#comparison-table tbody tr");
-        let numSubCriteria = rows.length;
-        let matrix = [];
-        let columnTotals = Array(numSubCriteria).fill(0);
+    let rows = document.querySelectorAll("#comparison-table tbody tr");
+    let numSubCriteria = rows.length;
+    let matrix = [];
+    let columnTotals = Array(numSubCriteria).fill(0);
 
-        // Membaca nilai dari input dan membentuk matriks perbandingan
-        rows.forEach((row, rowIndex) => {
-            let values = Array.from(row.querySelectorAll(".comparison-input")).map(input =>
-                parseFloat(input.value) || 0);
-            matrix.push(values);
-        });
-
-        // Menghitung total per kolom
-        for (let col = 0; col < numSubCriteria; col++) {
-            for (let row = 0; row < numSubCriteria; row++) {
-                columnTotals[col] += matrix[row][col];
-            }
-        }
-
-        // Normalisasi matriks
-        let normalizedMatrix = [];
-        let rowSums = Array(numSubCriteria).fill(0);
-        for (let row = 0; row < numSubCriteria; row++) {
-            normalizedMatrix[row] = [];
-            for (let col = 0; col < numSubCriteria; col++) {
-                let normalizedValue = matrix[row][col] / columnTotals[col];
-                normalizedMatrix[row][col] = normalizedValue;
-                rowSums[row] += normalizedValue;
-            }
-        }
-
-        // Membatasi total row sums ke 9 digit
-        rowSums = rowSums.map(value => parseFloat(value.toFixed(9)));
-
-        // Menghitung total keseluruhan jumlah sub kriteria
-        let totalSum = rowSums.reduce((sum, value) => sum + value, 0);
-        totalSum = parseFloat(totalSum.toFixed(9));
-
-        // Menghitung nilai prioritas
-        let priorities = rowSums.map(value => (value / totalSum).toFixed(9));
-
-        // Menemukan nilai prioritas tertinggi
-        let maxPriority = Math.max(...priorities);
-
-        // Membagi setiap nilai prioritas dengan nilai tertinggi
-        let normalizedPriorities = priorities.map(priority =>
-            parseFloat((priority / maxPriority).toFixed(9))
-        );
-        // Menampilkan hasil ke dalam input form
-        let priorityHTML = "<h4><b>Nilai Prioritas</b></h4>";
-        normalizedPriorities.forEach((value, index) => {
-            priorityHTML +=
-                `<div class="form-group">
-                <label>Sub Kriteria ${index + 1}</label>
-                <input type="text" name="nilai_prioritas[]" class="form-control" value="${value}" readonly>
-            </div>`;
-        });
-        document.querySelector("#priority-values").innerHTML = priorityHTML;
-
-        // Menyembunyikan tombol simpan jika belum ada data prioritas
-        document.querySelector("#save-db").style.display = "block";
+    // Membaca nilai dari input dan membentuk matriks perbandingan
+    rows.forEach((row, rowIndex) => {
+        let values = Array.from(row.querySelectorAll(".comparison-input")).map(input =>
+            parseFloat(input.value) || 0);
+        matrix.push(values);
     });
+
+    // Menghitung total per kolom
+    for (let col = 0; col < numSubCriteria; col++) {
+        for (let row = 0; row < numSubCriteria; row++) {
+            columnTotals[col] += matrix[row][col];
+        }
+    }
+
+    // Normalisasi matriks
+    let normalizedMatrix = [];
+    let rowSums = Array(numSubCriteria).fill(0);
+    for (let row = 0; row < numSubCriteria; row++) {
+        normalizedMatrix[row] = [];
+        for (let col = 0; col < numSubCriteria; col++) {
+            let normalizedValue = matrix[row][col] / columnTotals[col];
+            normalizedMatrix[row][col] = normalizedValue;
+            rowSums[row] += normalizedValue;
+        }
+    }
+
+    // Menghitung total keseluruhan jumlah sub kriteria
+    let totalSum = rowSums.reduce((sum, value) => sum + value, 0);
+
+    // Menghitung nilai prioritas
+    let priorities = rowSums.map(value => (value / totalSum).toFixed(6));
+
+    // Menemukan nilai prioritas tertinggi
+    let maxPriority = Math.max(...priorities);
+
+    // Membagi setiap nilai prioritas dengan nilai tertinggi
+    let normalizedPriorities = priorities.map(priority => priority / maxPriority);
+
+    // Menampilkan hasil ke dalam input form
+    let priorityHTML = "<h4><b>Nilai Prioritas</b></h4>";
+    normalizedPriorities.forEach((value, index) => {
+        priorityHTML +=
+            `<div class="form-group">
+                <label>Sub Kriteria ${index + 1}</label>
+                <input type="text" name="nilai_prioritas[]" class="form-control" value="${value.toFixed(9)}" readonly>
+            </div>`;
+    });
+    document.querySelector("#priority-values").innerHTML = priorityHTML;
+
+    // Menyembunyikan tombol simpan jika belum ada data prioritas
+    document.querySelector("#save-db").style.display = "block";
+});
 
 
     document.querySelector("#subcriteria-container").addEventListener("input", updateComparisonTable);
