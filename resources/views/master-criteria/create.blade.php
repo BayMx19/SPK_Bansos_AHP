@@ -193,13 +193,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let priorities = columnSums.map(sum => sum / numCriteria);
         let rowPriorities = matrix.map((row, rowIndex) => {
-            return row.map((value, colIndex) => priorities[colIndex] / value);
+            return row.map((value, colIndex) => priorities[rowIndex] * value);
         });
-        let transposedRowPriorities = rowPriorities[0].map((_, colIndex) =>
-            rowPriorities.map(row => row[colIndex])
-        );
-        let rowSums = transposedRowPriorities.map(row => row.reduce((sum, val) => sum + val, 0));
+
+        console.log(rowPriorities);
+
+        // let transposedRowPriorities = rowPriorities[0].map((_, colIndex) =>
+        //     rowPriorities.map(row => row[colIndex])
+        // );
+        // console.log(transposedRowPriorities);
+
+        let rowSums = rowPriorities.map(row => row.reduce((sum, val) => sum + val, 0));
+        console.log(rowSums);
+
         let eigenValues = rowSums.map((sum, index) => sum + priorities[index]);
+        console.log(eigenValues);
 
         let totalEigen = eigenValues.reduce((sum, val) => sum + val, 0);
         let lambdaMax = totalEigen / numCriteria;
