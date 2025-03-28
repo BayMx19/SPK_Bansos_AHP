@@ -33,6 +33,9 @@ class SubCriteriaController extends Controller
         $bobot = $request->input('bobot');
         $nilai_prioritas = $request->input('nilai_prioritas');
         $nilai_perbandingan = $request->input('nilai_perbandingan');
+        $lambda_max = $request->input('lambda_max');
+        $CI = $request->input('CI');
+        $CR = $request->input('CR');
 
         $subcriteriaData = [];
         for ($i = 0; $i < count($subcriteria); $i++) {
@@ -49,7 +52,7 @@ class SubCriteriaController extends Controller
                 SubCriteriaModel::create($data);
             }
 
-            $subcriteriaIds = DB::table('subcriteria')->whereIn('criteria_id', $criteria_id)->pluck('id');
+            $subcriteriaIds = DB::table('subcriteria')->whereIn('criteria_id', $criteria_id)->pluck('id')->toArray();
             $criteriaId = DB::table('subcriteria')->whereIn('criteria_id', $criteria_id)->first();
 
             if ($criteriaId) {
@@ -68,6 +71,14 @@ class SubCriteriaController extends Controller
                     ]
                 );
             }
+            DB::table('consistency_subcriteria')->insert([
+                'subcriteria_ids' => json_encode($subcriteriaIds),
+                'lambda_max' => number_format($lambda_max, 9, '.', ''),
+                'CI' => number_format($CI, 9, '.', ''),
+                'CR' => number_format($CR, 9, '.', ''),
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
 
             return redirect('/master-subcriteria')->with('success', 'Data Sub Criteria Berhasil Ditambah');
             } catch(QueryException $e){
@@ -89,7 +100,9 @@ class SubCriteriaController extends Controller
         $bobot = $request->input('bobot');
         $nilai_prioritas = $request->input('nilai_prioritas');
         $nilai_perbandingan = $request->input('nilai_perbandingan');
-
+        $lambda_max = $request->input('lambda_max');
+        $CI = $request->input('CI');
+        $CR = $request->input('CR');
         $subcriteriaData = [];
         for ($i = 0; $i < count($subcriteria); $i++) {
             $subcriteriaData[] = [
@@ -114,7 +127,7 @@ class SubCriteriaController extends Controller
                     ]);
             }
 
-            $subcriteriaIds = DB::table('subcriteria')->whereIn('criteria_id', $criteria_id)->pluck('id');
+            $subcriteriaIds = DB::table('subcriteria')->whereIn('criteria_id', $criteria_id)->pluck('id')->toArray();
             $criteriaId = DB::table('subcriteria')->whereIn('criteria_id', $criteria_id)->first();
 
             if ($criteriaId) {
@@ -133,6 +146,15 @@ class SubCriteriaController extends Controller
                     ]
                 );
             }
+            DB::table('consistency_subcriteria')->updateOrInsert(
+                ['subcriteria_ids' => json_encode($subcriteriaIds)],
+                [
+                    'lambda_max' => number_format($lambda_max, 9, '.', ''),
+                    'CI' => number_format($CI, 9, '.', ''),
+                    'CR' => number_format($CR, 9, '.', ''),
+                    'updated_at' => now()
+                ]
+            );
             return redirect('master-subcriteria')->with('success', 'Data berhasil diperbarui!');
 
         } catch (QueryException $e) {

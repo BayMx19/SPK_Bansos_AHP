@@ -201,29 +201,31 @@ document.addEventListener("DOMContentLoaded", function() {
         let totalSum = rowSums.reduce((sum, value) => sum + value, 0);
         totalSum = parseFloat(totalSum.toFixed(9));
 
-        let priorities = rowSums.map(value => (value / totalSum).toFixed(6));
+        let priorities = rowSums.map(value => (value / totalSum).toFixed(9));
 
         let maxPriority = Math.max(...priorities);
 
-        // Membagi setiap nilai prioritas dengan nilai tertinggi
         let normalizedPriorities = priorities.map(priority =>
             parseFloat((priority / maxPriority).toFixed(9))
         );
-        let rowMultiplications = Array(numSubCriteria).fill(0);
-        for (let row = 0; row < numSubCriteria; row++) {
-            for (let col = 0; col < numSubCriteria; col++) {
-                rowMultiplications[row] += priorities[col] * matrix[row][col];
-            }
-        }
+
+
+        let rowPriorities = matrix.map((row, rowIndex) => {
+            return row.map((value, colIndex) => priorities[colIndex] * value);
+        });
 
 
 
 
-        let eigenValues = rowMultiplications.map((value, index) =>
-            value + parseFloat(priorities[index])
+        // console.log(rowPriorities);
+
+
+        let eigenValues = rowPriorities.map((row, index) =>
+            row.reduce((sum, val) => sum + val, 0) + parseFloat(priorities[index])
         );
 
         let totalEigen = eigenValues.reduce((sum, value) => sum + value, 0);
+        console.log(totalEigen);
 
         let lambdaMax = totalEigen / numSubCriteria;
 
@@ -236,6 +238,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let RI = RI_VALUES[numSubCriteria - 1];
 
         let CR = CI / RI;
+
         // Menampilkan hasil ke dalam input form
         let priorityHTML = "<h4><b>Nilai Prioritas</b></h4>";
         normalizedPriorities.forEach((value, index) => {

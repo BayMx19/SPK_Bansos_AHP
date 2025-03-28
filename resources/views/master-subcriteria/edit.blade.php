@@ -246,21 +246,24 @@ document.addEventListener("DOMContentLoaded", function() {
         let normalizedPriorities = priorities.map(priority =>
             parseFloat((priority / maxPriority).toFixed(9))
         );
-        let rowMultiplications = Array(numSubCriteria).fill(0);
-        for (let row = 0; row < numSubCriteria; row++) {
-            for (let col = 0; col < numSubCriteria; col++) {
-                rowMultiplications[row] += priorities[col] * matrix[row][col];
-            }
-        }
+
+
+        let rowPriorities = matrix.map((row, rowIndex) => {
+            return row.map((value, colIndex) => priorities[colIndex] * value);
+        });
 
 
 
 
-        let eigenValues = rowMultiplications.map((value, index) =>
-            value + parseFloat(priorities[index])
+        // console.log(rowPriorities);
+
+
+        let eigenValues = rowPriorities.map((row, index) =>
+            row.reduce((sum, val) => sum + val, 0) + parseFloat(priorities[index])
         );
 
         let totalEigen = eigenValues.reduce((sum, value) => sum + value, 0);
+        console.log(totalEigen);
 
         let lambdaMax = totalEigen / numSubCriteria;
 
