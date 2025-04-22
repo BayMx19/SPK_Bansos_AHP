@@ -13,7 +13,7 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users = UsersModel::all();
+        $users = UsersModel::where('status', 'ACTIVE')->get();
 
         return view('/master-users.index', compact('users'));
     }

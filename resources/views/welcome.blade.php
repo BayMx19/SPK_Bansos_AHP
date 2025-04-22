@@ -101,19 +101,19 @@
                 <div class="splide__track">
                     <ul class="splide__list">
                         <!-- Slide 1 -->
-                        <li class="splide__slide">
-                            <img src="{{ asset('/image/bansos/image-1.jpeg') }}" alt="Program 1"
-                                class="w-full rounded-lg shadow-md">
+                        <li class="splide__slide img-landing">
+                            <img src="{{ asset('/image/bansos/img1.jpg') }}" alt="Program 1"
+                                class="w-full h-120 rounded-lg shadow-md ">
                         </li>
                         <!-- Slide 2 -->
-                        <li class="splide__slide">
-                            <img src="{{ asset('/image/bansos/image-2.jpg') }}" alt="Program 2"
-                                class="w-full rounded-lg shadow-md">
+                        <li class="splide__slide img-landing">
+                            <img src="{{ asset('/image/bansos/img2.jpg') }}" alt="Program 2"
+                                class="w-full h-120 rounded-lg shadow-md ">
                         </li>
                         <!-- Slide 3 -->
-                        <li class="splide__slide">
-                            <img src="{{ asset('/image/bansos/image-3.jpg') }}" alt="Program 3"
-                                class="w-full rounded-lg shadow-md">
+                        <li class="splide__slide img-landing">
+                            <img src="{{ asset('/image/bansos/img3.jpg') }}" alt="Program 3"
+                                class="w-full h-120 rounded-lg shadow-md ">
                         </li>
                     </ul>
                 </div>

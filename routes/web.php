@@ -65,8 +65,8 @@ Route::middleware(['auth', 'checkrole:Staff Kelurahan'])->group(function () {
     Route::get('/master-criteria', [CriteriaController::class, 'index'])->name('master-criteria');
     Route::get('/master-criteria/create', [CriteriaController::class, 'create']);
     Route::post('/criteria/store', [CriteriaController::class, 'store'])->name('criteria.store');
-    Route::get('/master-criteria/{id}/edit', [CriteriaController::class, 'edit'])->name('criteria.edit');
-    Route::put('/master-criteria/{id}', [CriteriaController::class, 'update'])->name('criteria.update');
+    // Route::get('/master-criteria/{id}/edit', [CriteriaController::class, 'edit'])->name('criteria.edit');
+    // Route::put('/master-criteria/{id}', [CriteriaController::class, 'update'])->name('criteria.update');
     Route::delete('/master-criteria/{id}', [CriteriaController::class, 'destroy'])->name('criteria.destroy');
 
     #Rute Data Subkriteria
@@ -78,7 +78,7 @@ Route::middleware(['auth', 'checkrole:Staff Kelurahan'])->group(function () {
     Route::delete('/master-subcriteria/{id}', [SubCriteriaController::class, 'destroy'])->name('subcriteria.destroy');
 
     // Route::get('/master-subcriteria/{id}/edit', [SubCriteriaController::class, 'edit'])->name('subcriteria.edit');
-    
+
 
     #Rute Perhitungan
     Route::get('/perhitungan', [PerhitunganController::class,'index'])->name('perhitungan');
